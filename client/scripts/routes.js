@@ -20,6 +20,10 @@ angular.module('sehajPaathTracker')
 				url: '/create-paath',
 				templateUrl: 'client/templates/createPaath.html'
 			})
+			.state('editPaath', {
+				url: '/edit-paath',
+				templateUrl: 'client/templates/editPaath.html'
+			})
 			.state('paathDetails', {
 				url: '/paath-details',
 				templateUrl: 'client/templates/paathDetails.html',
