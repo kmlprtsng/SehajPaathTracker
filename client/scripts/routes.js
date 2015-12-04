@@ -25,7 +25,7 @@ angular.module('sehajPaathTracker')
 				templateUrl: 'client/templates/editPaath.html'
 			})
 			.state('paathDetails', {
-				url: '/paath-details',
+				url: '/paaths/:paathId',
 				templateUrl: 'client/templates/paathDetails.html',
 				controller: 'paathDetailsCtrl'
 			})
