@@ -2,8 +2,8 @@
     <ion-content padding="false" class="has-header">
         <form class="list">
             <label class="item item-input">
-                <span class="input-label">Name</span>
-                <input type="text" placeholder="">
+                <span class="input-label">Title</span>
+                <input type="text" placeholder="" ng-model="data.title">
             </label>
             <div class="list card">
                 <div class="item item-divider">People</div>
@@ -20,8 +20,7 @@
                 </div>
             </div>
         </form>
-        <form class="list"></form>
-        <ion-list></ion-list>
-        <button class="button button-positive button-block ">Add</button>
+        
+        <button class="button button-positive button-block" ng-click="createPaath()">Add</button>
     </ion-content>
 </ion-view>

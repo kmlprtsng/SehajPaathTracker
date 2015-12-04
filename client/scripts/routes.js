@@ -18,7 +18,8 @@ angular.module('sehajPaathTracker')
 			})
 			.state('createPaath', {
 				url: '/create-paath',
-				templateUrl: 'client/templates/createPaath.html'
+				templateUrl: 'client/templates/createPaath.html',
+				controller: "createPaathCtrl"
 			})
 			.state('paathSettings', {
 				url: '/paaths/:paathId/settings',
