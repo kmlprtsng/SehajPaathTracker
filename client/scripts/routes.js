@@ -21,10 +21,10 @@ angular.module('sehajPaathTracker')
 				templateUrl: 'client/templates/paathDetails.html',
 				controller: 'paathDetailsCtrl'
 			})
-			.state('addPaath', {
-				url: '/add-paath',
-				templateUrl: 'client/templates/addPaath.html',
-				controller: 'addPaathCtrl'
+			.state('addPaathLog', {
+				url: '/add-paath-log',
+				templateUrl: 'client/templates/addPaathLog.html',
+				controller: 'addPaathLogCtrl'
 			});
 
 		$urlRouterProvider.otherwise('/login');
