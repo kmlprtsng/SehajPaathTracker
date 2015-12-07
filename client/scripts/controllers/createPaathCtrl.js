@@ -1,9 +1,16 @@
 angular.module('sehajPaathTracker')
 	.controller('createPaathCtrl', function ($scope, $meteor, $state) {
-		$scope.data = {};
+		$scope.data = {
+			title: "",
+			formValid: false
+		};
 
+		$scope.$watch("data.title", function(){
+			$scope.data.formValid = !(_.isEmpty($scope.data.title));
+		});
+		
 		$scope.createPaath = function () {
-			if (_.isEmpty($scope.data.title)) {
+			if (!$scope.data.formValid) {
 				return;
 			}
 
