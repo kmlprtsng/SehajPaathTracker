@@ -30,7 +30,7 @@
                     type="number" 
                     placeholder="Finishing Ang"
                     ng-model="data.finishAng"
-                    required
+                    ng-required="data.selectedStatus.finished"
                     ng-min="data.startAng + 1"
                     max="1430"
                     >
@@ -51,13 +51,19 @@
             </label>
             <label class="item item-input item-select">
                 <span class="input-label">Status *</span>
-                <select>
-                    <option>Please Select ...</option>
-                    <option>Not yet started</option>
-                    <option>In progress</option>
-                    <option>Done</option>
+                <select
+                    name="logStatus"
+                    ng-options="logStatus as logStatus.title for logStatus in paathLogStatus" 
+                    ng-model="data.selectedStatus"
+                    required
+                    >
+                    <option value="">-- Please Choose --</option>
                 </select>
             </label>
+            <div ng-show="paathLogForm.logStatus.$error.required && (paathLogForm.$submitted || paathLogForm.logStatus.$dirty)">
+                    Please choose a status
+            </div>
+            
             <button type="submit" class="button button-positive button-block">Add</button>        
         </form>
         
