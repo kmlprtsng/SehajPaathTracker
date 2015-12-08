@@ -1,21 +1,65 @@
 <ion-view title="Add Paath">
     <ion-content padding="false" class="has-header">
-        <form class="list">
-            <label class="item item-input" name="StartingAng">
-                <input type="number" placeholder="Starting Ang">
+        <form class="list" name="paathLogForm" novalidate ng-submit="addPaathLog(paathLogForm.$valid)">
+            <label class="item item-input">
+                <input 
+                    name="startAng"
+                    type="number" 
+                    placeholder="Starting Ang *" 
+                    ng-model="data.startAng" 
+                    required
+                    min="1"
+                    max="1430"
+                    >
             </label>
-            <label class="item item-input" name="FinishingAng">
-                <input type="number" placeholder="Finishing Ang">
+            <div ng-show="paathLogForm.$submitted || paathLogForm.startAng.$dirty">
+                <div ng-show="paathLogForm.startAng.$error.required">
+                    This is required
+                </div>
+                <div ng-show="paathLogForm.startAng.$error.min">
+                    Must be greater than 1
+                </div>
+                <div ng-show="paathLogForm.startAng.$error.max">
+                    Must be less than 1430
+                </div>
+            </div>
+            
+            <label class="item item-input">
+                <input 
+                    name="finishAng"
+                    type="number" 
+                    placeholder="Finishing Ang"
+                    ng-model="data.finishAng"
+                    required
+                    ng-min="data.startAng + 1"
+                    max="1430"
+                    >
             </label>
-            <label class="item item-input" name="FinishingAng">
+            <div ng-show="paathLogForm.$submitted || paathLogForm.finishAng.$dirty">
+                <div ng-show="paathLogForm.finishAng.$error.required">
+                    This is required
+                </div>
+                <div ng-show="paathLogForm.finishAng.$error.min">
+                    Must be greater than the starting ang
+                </div>
+                <div ng-show="paathLogForm.finishAng.$error.max">
+                    Must be less than 1430
+                </div>
+            </div>
+            <label class="item item-input">
                 <input type="text" placeholder="Finishing Pankti">
             </label>
-            <label class="item item-select" name="PaathStatus">
-                <span class="input-label">Status</span>
-                <select></select>
+            <label class="item item-input item-select">
+                <span class="input-label">Status *</span>
+                <select>
+                    <option>Please Select ...</option>
+                    <option>Not yet started</option>
+                    <option>In progress</option>
+                    <option>Done</option>
+                </select>
             </label>
+            <button type="submit" class="button button-positive button-block">Add</button>        
         </form>
         
-        <button class="button button-positive button-block ">Add</button>
     </ion-content>
 </ion-view>
