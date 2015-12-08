@@ -13,13 +13,13 @@
                     >
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.startAng.$dirty">
-                <div ng-show="paathLogForm.startAng.$error.required">
+                <div ng-show="paathLogForm.startAng.$error.required" class="form-error">
                     This is required
                 </div>
-                <div ng-show="paathLogForm.startAng.$error.min">
+                <div ng-show="paathLogForm.startAng.$error.min" class="form-error">
                     Must be greater than 1
                 </div>
-                <div ng-show="paathLogForm.startAng.$error.max">
+                <div ng-show="paathLogForm.startAng.$error.max" class="form-error">
                     Must be less than 1430
                 </div>
             </div>
@@ -36,13 +36,13 @@
                     >
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.finishAng.$dirty">
-                <div ng-show="paathLogForm.finishAng.$error.required">
+                <div ng-show="paathLogForm.finishAng.$error.required" class="form-error">
                     This is required
                 </div>
-                <div ng-show="paathLogForm.finishAng.$error.min">
+                <div ng-show="paathLogForm.finishAng.$error.min" class="form-error">
                     Must be greater than the starting ang
                 </div>
-                <div ng-show="paathLogForm.finishAng.$error.max">
+                <div ng-show="paathLogForm.finishAng.$error.max" class="form-error">
                     Must be less than 1430
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     <option value="">-- Please Choose --</option>
                 </select>
             </label>
-            <div ng-show="paathLogForm.logStatus.$error.required && (paathLogForm.$submitted || paathLogForm.logStatus.$dirty)">
+            <div ng-show="paathLogForm.logStatus.$error.required && (paathLogForm.$submitted || paathLogForm.logStatus.$dirty)" class="form-error">
                     Please choose a status
             </div>
             
