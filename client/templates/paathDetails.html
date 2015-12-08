@@ -4,12 +4,11 @@
     </ion-nav-buttons>
     <ion-content padding="false" class="has-header">
         <ion-list>
-            <ion-item menu-close="">1 - 20 (Done)</ion-item>
-            <ion-item menu-close="">21 (Requires doing)</ion-item>
-            <ion-item menu-close="">22-24 (in progress)</ion-item>
-            <ion-item menu-close="">25 (in progress)</ion-item>
+            <ion-item ng-repeat="log in paath.logs">
+                {{log.startAng}} - {{log.finishAng}} ({{log.status}})
+            </ion-item>          
         </ion-list>
 
-        <a menu-close="" href="#/add-paath-log" class="button button-positive button-block ">Add Paath</a>
+        <a menu-close="" href="#/paaths/{{paath._id}}/add-paath-log" class="button button-positive button-block ">Add Paath</a>
     </ion-content>
 </ion-view>
