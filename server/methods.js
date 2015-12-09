@@ -1,16 +1,7 @@
 Meteor.methods({
   createPaath: function (paath) {
     paath.timestamp = new Date();
-    paath.logs = [{
-				startAng: 1,
-				finishAng: 3,
-				status: "Done"
-			},
-      {
-				startAng: 3,
-				finishAng: 5,
-				status: "In progress"
-			}];
+    paath.logs = [];
     
     var paathId = Paaths.insert(paath);
     return paathId;
@@ -21,6 +12,6 @@ Meteor.methods({
   },
   
   addPaathLog : function(paathId, paathLog){
-    // return Paaths.update(paathId, { $push: { logs: paathLog } });
+     return Paaths.update(paathId, { $push: { logs: paathLog } });
   }
 });

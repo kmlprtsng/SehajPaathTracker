@@ -11,16 +11,12 @@ angular.module('sehajPaathTracker')
 				startAng: $scope.data.startAng,
 				finishAng: $scope.data.finishAng,
 				nextPankti: $scope.data.nextPankti,
-				status: $scope.data.selectedStatus
+				status: $scope.data.selectedStatus.title
 			};
 			
+			$meteor.call('addPaathLog', paathId, paathLog);
+			
 			$ionicHistory.goBack();
-			// $meteor.call('addPaathLog', paathId, {
-			// 	startAng: $scope.data.startAng,
-			// 	finishAng: $scope.data.finishAng,
-			// 	nextPankti: $scope.data.nextPankti,
-			// 	status: $scope.data.selectedStatus
-			// });
 		}
 	};
 });
