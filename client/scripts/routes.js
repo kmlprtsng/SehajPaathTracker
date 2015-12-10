@@ -32,9 +32,14 @@ angular.module('sehajPaathTracker')
 				controller: 'paathDetailsCtrl'
 			})
 			.state('addPaathLog', {
-				url: '/paaths/:paathId/add-paath-log',
-				templateUrl: 'client/templates/addPaathLog.html',
-				controller: 'addPaathLogCtrl'
+				url: '/paaths/:paathId/paath-log/add',
+				templateUrl: 'client/templates/paathLogForm.html',
+				controller: 'paathLogFormCtrl'
+			})
+			.state('editPaathLog', {
+				url: '/paaths/:paathId/paath-log/:paathLogId',
+				templateUrl: 'client/templates/paathLogForm.html',
+				controller: 'paathLogFormCtrl'
 			});
 
 		$urlRouterProvider.otherwise('/login');
