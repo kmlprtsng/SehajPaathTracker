@@ -6,10 +6,15 @@ angular.module('sehajPaathTracker')
 	$scope.data = {};
 	$scope.paathLogStatus = PaathLogStatuses;
 	
-	// if(paathLogId){
-	// 	var paathLog = Paaths.find()
-	// 	$scope.data.startAng = 
-	// }
+	if(paathLogId){
+		var paath = $scope.$meteorObject(Paaths, paathId, false),
+			paathLog = _.first(_.where(paath.logs, { _id: paathLogId}));
+		
+		$scope.data.startAng = paathLog.startAng;
+		$scope.data.finishAng = paathLog.finishAng;
+		$scope.data.nextPankti = paathLog.nextPankti;
+		$scope.data.selectedStatus = _.where($scope.paathLogStatus, {title : paathLog.status})[0];
+	}
 	
 	$scope.addPaathLog = function(isValid){
 		if(isValid){
