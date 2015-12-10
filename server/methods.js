@@ -12,7 +12,8 @@ Meteor.methods({
   },
   
   addPaathLog : function(paathId, paathLog){
-     paathLog._id = new Mongo.ObjectID;
+     var newId = new Mongo.ObjectID;
+     paathLog._id = newId._str;
      return Paaths.update(paathId, { $push: { logs: paathLog } });
   }
 });
