@@ -29,7 +29,7 @@ angular.module('sehajPaathTracker')
 				status: $scope.data.selectedStatus.title
 			};
 			
-			$meteor.call('updatePaathLog', paathId, paathLog);
+			$meteor.call('savePaathLog', paathId, paathLog);
 			
 			$ionicHistory.goBack();
 		}
