@@ -71,5 +71,7 @@
             <button type="submit" class="button button-positive button-block">{{newPaathLog ? "Add" : "Update"}}</button>        
         </form>
         
+        <button class="button button-assertive button-block" ng-click="deletePaathLog()" ng-if="!newPaathLog">Delete</button>
+        
     </ion-content>
 </ion-view>

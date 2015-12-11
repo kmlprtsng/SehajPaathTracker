@@ -22,5 +22,11 @@ Meteor.methods({
       paathLog._id = newId._str;
       return Paaths.update(paathId, { $push: { logs: paathLog } });
     }
+  },
+  
+  deletePaathLog: function(paathId, paathLogId){
+    Paaths.update(
+        {  },
+        { $pull: { logs : { _id : paathLogId } } });
   }
 });

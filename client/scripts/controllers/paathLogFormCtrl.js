@@ -34,4 +34,9 @@ angular.module('sehajPaathTracker')
 			$ionicHistory.goBack();
 		}
 	};
+	
+	$scope.deletePaathLog = function(){
+		$meteor.call('deletePaathLog', paathId, paathLogId)
+		$ionicHistory.goBack();
+	}
 });
