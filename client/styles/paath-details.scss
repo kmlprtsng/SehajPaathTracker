@@ -6,12 +6,12 @@
 
 .userPaathStatus{
 	position: relative;
-    overflow: hidden;
     margin: 0 14px 9px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 10px 10px 2px 10px;
     background-color: #dfe9ef;
     color: #76838f;
+    overflow: hidden;
 }
 
 .userPaathStatus-name{
@@ -21,6 +21,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-bottom: 5px;
 }
 
 .userPaathStatus-time {
@@ -28,4 +29,18 @@
     top: 10px;
     right: 6px;
 	color: #a3afb7;
+}
+
+.userPaathStatus-social{
+    float: left;
+    
+    .button{
+        font-size: 14px;
+       
+    }
+}
+
+.userPaathStatus-actions{
+    float: right;
+    margin-top: 6px;
 }
