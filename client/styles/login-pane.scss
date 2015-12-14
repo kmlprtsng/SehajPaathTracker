@@ -3,4 +3,21 @@
 	background-position: 25% 25%;
     background-size: 180% 180%;
     height: 100%;
+	
+	.list{
+		margin-top: 15px;
+	}
+	
+	.item-input{
+		margin-bottom: 5px;
+	}
+	
+	.login-logo{
+		text-align: center;
+		margin-top: 10px;
+		
+		img{
+			width: 350px;
+		}
+	}
 }
