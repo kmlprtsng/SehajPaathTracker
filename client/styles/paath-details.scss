@@ -1,0 +1,31 @@
+.pane-paathDetails{
+	.nextAng{
+		text-align: center;	
+	}
+}
+
+.userPaathStatus{
+	position: relative;
+    overflow: hidden;
+    margin: 0 14px 9px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #dfe9ef;
+    color: #76838f;
+}
+
+.userPaathStatus-name{
+	font-weight: bold;
+    font-size: 15px;
+	margin-right: 85px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.userPaathStatus-time {
+    position: absolute;
+    top: 10px;
+    right: 6px;
+	color: #a3afb7;
+}
