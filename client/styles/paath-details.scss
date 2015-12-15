@@ -1,0 +1,52 @@
+.pane-paathDetails{
+	.nextAng{
+		text-align: center;
+        color: #3C3C3C;
+        font-weight: 100;
+        margin-top: 10px;
+        line-height: 20px;
+        margin: 12px;
+        font-size: 16px;
+	}
+}
+
+.userPaathStatus{
+	position: relative;
+    margin: 0 14px 9px;
+    border-radius: 5px;
+    padding: 10px 10px 2px 10px;
+    background-color: #dfe9ef;
+    color: #76838f;
+    overflow: hidden;
+}
+
+.userPaathStatus-name{
+	font-weight: bold;
+    font-size: 15px;
+	margin-right: 85px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 5px;
+}
+
+.userPaathStatus-time {
+    position: absolute;
+    top: 10px;
+    right: 6px;
+	color: #a3afb7;
+}
+
+.userPaathStatus-social{
+    float: left;
+    
+    .button{
+        font-size: 14px;
+       
+    }
+}
+
+.userPaathStatus-actions{
+    float: right;
+    margin-top: 6px;
+}

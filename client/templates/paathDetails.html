@@ -2,17 +2,74 @@
     <ion-nav-buttons side="secondary">
         <a menu-close="" href="#/paaths/{{paath._id}}/settings" class="button button-icon icon ion-ios-cog"></a>
     </ion-nav-buttons>
-    <ion-content padding="false" class="has-header">
-        <ion-list>
-            <ion-item 
-                ng-repeat="log in paath.logs"
-                href="#/paaths/{{paath._id}}/paath-log/{{log._id}}"
-                class="item-icon-right">
-                {{log.startAng}} - {{log.finishAng}} ({{log.status}})
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </ion-item>          
-        </ion-list>
-
-        <a menu-close="" href="#/paaths/{{paath._id}}/paath-log/add" class="button button-positive button-block ">Add Paath</a>
+    <ion-content padding="false" class="has-header pane-paathDetails">
+         <h1 class="nextAng">
+             ਅਨ ਕੋ ਦਰੁ ਘਰੁ ਕਬਹੂ ਨ ਜਾਨਸਿ ਏਕੋ ਦਰੁ ਸਚਿਆਰਾ || <br/>
+                ਗੁਰ ਪਰਸਾਦਿ ਪਰਮ ਪਦੁ ਪਾਇਆ ਨਾਨਕੁ ਕਹੈ ਵਿਚਾਰਾ ||
+        </h1>
+         
+         <div class="progressCircle-wrapper">
+            <div class="progressCircle-text ng-cloak">
+                <div class="progressCircle-text-stats">
+                    Next Ang: 726
+                </div>
+                <div class="progressCircle-text-stats">
+                    Completed: 715
+                </div>
+                <div class="progressCircle-text-stats">
+                    In Progress: 10
+                </div>
+            </div>
+            <div
+                round-progress
+                max="1430"
+                current="715"
+                color="#62a8ea"
+                bgcolor="#eaeaea"
+                radius="85"
+                stroke="10"
+                semi="false"
+                rounded="true"
+                clockwise="true"
+                responsive="false"
+                duration="800"
+                animation="easeInOutQuart">
+            </div>
+         </div>
+        <div class="userPaathStatus-list">
+            <div class="userPaathStatus">
+                <div class="userPaathStatus-name">Kamalpreet Singh</div>
+                <div class="userPaathStatus-latest">You have assigned yourself Ang 10 to 15</div>
+                <div class="userPaathStatus-time">12:30 am</div>
+                
+                <div class="userPaathStatus-social">
+                    <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
+                </div>
+                <div class="userPaathStatus-actions">
+                    <button class="button button-small button-primary">Update</button>
+                </div>
+            </div>
+            <div class="userPaathStatus">
+                <div class="userPaathStatus-name">Jasvinder Kaur</div>
+                <div class="userPaathStatus-latest">Jasvinder Kaur will be doing Ang 16 to 20</div>
+                <div class="userPaathStatus-time">Yesterday</div>
+                <div class="userPaathStatus-social">
+                    <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
+                </div>
+            </div>
+            <div class="userPaathStatus">
+                <div class="userPaathStatus-name">Satpaul Singh</div>
+                <div class="userPaathStatus-latest">Satpaul Singh has finished Ang 9 to 10.</div>
+                <div class="userPaathStatus-time">2 days ago</div>
+                <div class="userPaathStatus-social">
+                    <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <a href="#/paaths/{{paath._id}}/history-logs" class="button button-clear">View all history</a>
+        </div>
+        <!--
+        <a menu-close="" href="#/paaths/{{paath._id}}/paath-log/add" class="button button-positive button-block ">Add Paath</a>-->
     </ion-content>
 </ion-view>
