@@ -2,6 +2,11 @@
 	background-color: #62a8ea;
     border-color: #62a8ea;
 	color: white;
+	
+	&.activated {
+		background-color: #5496D6;
+    	border-color: #8AA9C5;
+	}
 }
 
 .button.button-primary.button-clear {
