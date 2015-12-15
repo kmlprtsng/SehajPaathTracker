@@ -67,18 +67,9 @@
             </div>
         </div>
         <div class="center">
-            <button class="button button-clear">View all history</button>
+            <a href="#/paaths/{{paath._id}}/history-logs" class="button button-clear">View all history</a>
         </div>
-        <!--<ion-list>
-            <ion-item 
-                ng-repeat="log in paath.logs"
-                href="#/paaths/{{paath._id}}/paath-log/{{log._id}}"
-                class="item-icon-right">
-                {{log.startAng}} - {{log.finishAng}} ({{log.status}})
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </ion-item>          
-        </ion-list>
-
+        <!--
         <a menu-close="" href="#/paaths/{{paath._id}}/paath-log/add" class="button button-positive button-block ">Add Paath</a>-->
     </ion-content>
 </ion-view>

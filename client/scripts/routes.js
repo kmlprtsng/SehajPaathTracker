@@ -31,6 +31,11 @@ angular.module('sehajPaathTracker')
 				templateUrl: 'client/templates/paathDetails.html',
 				controller: 'paathDetailsCtrl'
 			})
+			.state('paathHistoryLogs', {
+				url: '/paaths/:paathId/history-logs',
+				templateUrl: 'client/templates/paathHistoryLogs.html',
+				controller: 'paathHistoryLogsCtrl'
+			})
 			.state('addPaathLog', {
 				url: '/paaths/:paathId/paath-log/add',
 				templateUrl: 'client/templates/paathLogForm.html',
