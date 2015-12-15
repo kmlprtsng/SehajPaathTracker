@@ -1,0 +1,13 @@
+{
+  "name": "SehajPaathTracker",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular-svg-round-progressbar": "0.3.8"
+  },
+  "ignoredDependencies": [
+    "ionic", "angular", "angular-animate", "angular-sanitize", "angular-ui-router"
+  ],
+  "overrides": {
+    },
+  "private": true
+}

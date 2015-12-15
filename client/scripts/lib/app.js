@@ -1,7 +1,8 @@
 angular
   .module('sehajPaathTracker', [
     'angular-meteor',
-    'ionic'
+    'ionic',
+    'angular-svg-round-progress'
   ]);
  
 if (Meteor.isCordova) {
