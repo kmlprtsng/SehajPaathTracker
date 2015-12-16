@@ -1,12 +1,12 @@
-<ion-view title="{{newPaathLog ? 'Add Log' : 'Update Log'}}">
+<ion-view title="{{vm.newPaathLog ? 'Add Log' : 'Update Log'}}">
     <ion-content padding="false" class="has-header">
-        <form class="list" name="paathLogForm" novalidate ng-submit="updatePaathLog(paathLogForm.$valid)">
+        <form class="list" name="paathLogForm" novalidate ng-submit="vm.updatePaathLog(paathLogForm.$valid)">
             <label class="item item-input">
                 <input 
                     name="startAng"
                     type="number" 
                     placeholder="Starting Ang *" 
-                    ng-model="data.startAng" 
+                    ng-model="vm.data.startAng" 
                     required
                     min="1"
                     max="1430"
@@ -29,9 +29,9 @@
                     name="finishAng"
                     type="number" 
                     placeholder="Finishing Ang"
-                    ng-model="data.finishAng"
-                    ng-required="data.selectedStatus.finished"
-                    ng-min="data.startAng + 1"
+                    ng-model="vm.data.finishAng"
+                    ng-required="vm.data.selectedStatus.finished"
+                    ng-min="vm.data.startAng + 1"
                     max="1430"
                     >
             </label>
@@ -51,14 +51,14 @@
                     name="nextPantki"
                     type="text" 
                     placeholder="Finishing Pankti"
-                    ng-model="data.nextPankti">
+                    ng-model="vm.data.nextPankti">
             </label>
             <label class="item item-input item-select">
                 <span class="input-label">Status *</span>
                 <select
                     name="logStatus"
-                    ng-options="logStatus as logStatus.title for logStatus in paathLogStatus" 
-                    ng-model="data.selectedStatus"
+                    ng-options="logStatus as logStatus.title for logStatus in vm.paathLogStatus" 
+                    ng-model="vm.data.selectedStatus"
                     required
                     >
                     <option value="">-- Please Choose --</option>
@@ -68,10 +68,10 @@
                     Please choose a status
             </div>
             
-            <button type="submit" class="button button-positive button-block">{{newPaathLog ? "Add" : "Update"}}</button>        
+            <button type="submit" class="button button-positive button-block">{{vm.newPaathLog ? "Add" : "Update"}}</button>        
         </form>
         
-        <button class="button button-assertive button-block" ng-click="deletePaathLog()" ng-if="!newPaathLog">Delete</button>
+        <button class="button button-assertive button-block" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog">Delete</button>
         
     </ion-content>
 </ion-view>

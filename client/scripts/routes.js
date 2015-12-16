@@ -39,7 +39,7 @@ angular.module('sehajPaathTracker')
 			.state('addPaathLog', {
 				url: '/paaths/:paathId/paath-log/add',
 				templateUrl: 'client/templates/paathLogForm.html',
-				controller: 'paathLogFormCtrl',
+				controller: 'paathLogFormCtrl as vm',
 				resolve: {
 					paathLogStatues: function(){ return PaathLogStatuses; }
 				}
@@ -47,7 +47,7 @@ angular.module('sehajPaathTracker')
 			.state('editPaathLog', {
 				url: '/paaths/:paathId/paath-log/:paathLogId',
 				templateUrl: 'client/templates/paathLogForm.html',
-				controller: 'paathLogFormCtrl',
+				controller: 'paathLogFormCtrl as vm',
 				resolve: {
 					paathLogStatues: function(){ return PaathLogStatuses; }
 				}
