@@ -1,7 +1,13 @@
-angular.module('sehajPaathTracker')  
-.controller('paathHistoryLogsCtrl', function($scope, $stateParams) {
-	var vm = this,
-		paathId = $stateParams.paathId;
+(function () {
+	'use strict';
 	
-	this.paath = $scope.$meteorObject(Paaths, paathId, false);
-});
+	angular.module('sehajPaathTracker')
+		.controller('PaathHistoryLogsCtrl', PaathHistoryLogsCtrl);
+		
+		function PaathHistoryLogsCtrl($scope, $stateParams){
+			var vm = this,
+				paathId = $stateParams.paathId;
+
+			this.paath = $scope.$meteorObject(Paaths, paathId, false);
+		}
+})();
