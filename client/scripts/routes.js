@@ -29,7 +29,7 @@ angular.module('sehajPaathTracker')
 			.state('paathDetails', {
 				url: '/paaths/:paathId',
 				templateUrl: 'client/templates/paathDetails.html',
-				controller: 'paathDetailsCtrl'
+				controller: 'PaathDetailsCtrl as vm'
 			})
 			.state('paathHistoryLogs', {
 				url: '/paaths/:paathId/history-logs',
