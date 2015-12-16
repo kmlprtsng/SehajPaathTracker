@@ -1,11 +1,11 @@
 angular.module('sehajPaathTracker')
-.controller('paathLogFormCtrl', function($scope, $meteor, $state, $stateParams, $ionicHistory) {
+.controller('paathLogFormCtrl', function($scope, $meteor, $state, $stateParams, $ionicHistory, paathLogStatues) {
 	var paathId = $stateParams.paathId,
 		paathLogId = $stateParams.paathLogId;
 	
 	$scope.newPaathLog = !paathLogId;
 	$scope.data = {};
-	$scope.paathLogStatus = PaathLogStatuses;
+	$scope.paathLogStatus = paathLogStatues;
 	
 	if(paathLogId){
 		var paath = $scope.$meteorObject(Paaths, paathId, false),
