@@ -6,7 +6,7 @@
 
   function deletePaathLog(paathId, paathLogId) {
     Paaths.update(
-      {},
+      { _id: paathId },
       { $pull: { logs: { _id: paathLogId } } });
   }
 
