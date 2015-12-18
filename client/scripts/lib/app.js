@@ -15,3 +15,16 @@ else {
 function onReady() {
   angular.bootstrap(document, ['sehajPaathTracker']);
 }
+
+
+var mySubmitFunc = function(error, state){
+  if (!error) {
+    if (state === "signIn" || state === "signUp") {
+      window.location = "#/paaths";
+    }
+  }
+};
+
+AccountsTemplates.configure({
+  onSubmitHook: mySubmitFunc
+});
