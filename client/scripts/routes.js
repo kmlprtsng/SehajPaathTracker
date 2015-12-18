@@ -4,7 +4,6 @@ angular.module('sehajPaathTracker')
 			.state('login', {
 				url: '/login',
 				templateUrl: 'client/templates/login.html',
-				controller: 'loginCtrl',
 				authRequired: false
 			})
 			.state('paaths', {
