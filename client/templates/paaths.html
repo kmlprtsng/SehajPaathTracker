@@ -4,6 +4,7 @@
     </ion-nav-buttons>
     
     <ion-content padding="false" class="has-header pane-paaths">
+        <blaze-template name="atNavButton"></blaze-template>
         <ion-list>
             <ion-item  ng-repeat="paath in paaths" menu-close="" href="#/paaths/{{paath._id}}">
                 <div class="item-icon-left">

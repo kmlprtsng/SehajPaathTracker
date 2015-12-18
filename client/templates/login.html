@@ -1,19 +1,8 @@
 <ion-view title="Login" class="pane-login" hide-nav-bar="true">
-    <ion-content padding="true">
+    <ion-content padding="false">
         <div class="login-logo">
             <img src="/imgs/logo.png" alt="Sehaj Paath Tracker" />
         </div>
-        <form class="list">
-            <ion-list>
-                <label class="item item-input">
-                    <input type="text" placeholder="Username">
-                </label>
-                <label class="item item-input">
-                    <input type="password" placeholder="Password">
-                </label>
-            </ion-list>
-            <button ng-click="login()" class="button button-positive button-block ">Log in</button>
-            <a menu-close="" href="#/signup" class="button button-positive button-clear button-block ">Or create an account</a>
-        </form>
+        <blaze-template name="atForm"></blaze-template>
     </ion-content>
 </ion-view>
