@@ -1,5 +1,7 @@
 angular.module('sehajPaathTracker')
 	.config(function ($stateProvider, $urlRouterProvider) {
+		Meteor.subscribe('paaths');
+				
 		$stateProvider
 			.state('login', {
 				url: '/login',
@@ -9,7 +11,7 @@ angular.module('sehajPaathTracker')
 			.state('paaths', {
 				url: '/paaths',
 				templateUrl: 'client/templates/paaths.html',
-				controller: 'PaathsCtrl',
+				controller: 'PaathsCtrl as vm',
 				authRequired: true
 			})
 			.state('createPaath', {
