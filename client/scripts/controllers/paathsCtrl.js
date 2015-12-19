@@ -1,7 +1,7 @@
 angular.module('sehajPaathTracker')
 	.controller('PaathsCtrl', PaathsController);
 
-function PaathsController($scope, $reactive) {
+function PaathsController($scope, $reactive, postSignupDetails) {
 	$reactive(this).attach($scope);
 
 	var vm = this;
@@ -11,4 +11,6 @@ function PaathsController($scope, $reactive) {
 			return Paaths.find();
 		}
 	});
+	
+	postSignupDetails.showModal();
 }
