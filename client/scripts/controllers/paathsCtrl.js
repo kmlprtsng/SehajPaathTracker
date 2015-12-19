@@ -1,4 +1,4 @@
 angular.module('sehajPaathTracker')
-	.controller('paathsCtrl', function ($scope) {
+	.controller('PaathsCtrl', function ($scope) {
 		$scope.paaths = $scope.$meteorCollection(Paaths, false);
 	});
