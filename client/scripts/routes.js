@@ -17,7 +17,7 @@ angular.module('sehajPaathTracker')
 			.state('createPaath', {
 				url: '/create-paath',
 				templateUrl: 'client/templates/createPaath.html',
-				controller: "CreatePaathCtrl",
+				controller: "CreatePaathCtrl as vm",
 				authRequired: true
 			})
 			.state('paathSettings', {
