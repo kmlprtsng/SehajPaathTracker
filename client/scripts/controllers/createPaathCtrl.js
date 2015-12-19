@@ -1,5 +1,5 @@
 angular.module('sehajPaathTracker')
-	.controller('createPaathCtrl', function ($scope, $meteor, $state) {
+	.controller('CreatePaathCtrl', function ($scope, $meteor, $state) {
 		$scope.data = {
 			title: "",
 			formValid: false

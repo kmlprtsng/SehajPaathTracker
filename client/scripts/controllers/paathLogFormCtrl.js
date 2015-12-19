@@ -1,6 +1,6 @@
 (function () {
 	angular.module('sehajPaathTracker')
-		.controller('paathLogFormCtrl', function ($scope, $meteor, $state, $stateParams, $ionicHistory, paathLogStatues) {
+		.controller('PaathLogFormCtrl', function ($scope, $meteor, $state, $stateParams, $ionicHistory, paathLogStatues) {
 			var vm = this,
 				paathId = $stateParams.paathId,
 				paathLogId = $stateParams.paathLogId;
