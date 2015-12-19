@@ -1,4 +1,14 @@
 angular.module('sehajPaathTracker')
-	.controller('PaathsCtrl', function ($scope) {
-		$scope.paaths = $scope.$meteorCollection(Paaths, false);
+	.controller('PaathsCtrl', PaathsController);
+
+function PaathsController($scope, $reactive) {
+	$reactive(this).attach($scope);
+
+	var vm = this;
+	
+	vm.helpers({
+		paaths() {
+			return Paaths.find();
+		}
 	});
+}

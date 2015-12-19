@@ -1,23 +1,31 @@
 angular.module('sehajPaathTracker')
-	.controller('CreatePaathCtrl', function ($scope, $meteor, $state) {
-		$scope.data = {
-			title: "",
-			formValid: false
-		};
+	.controller('CreatePaathCtrl', CreatePaathController);
 
-		$scope.$watch("data.title", function(){
-			$scope.data.formValid = !(_.isEmpty($scope.data.title));
-		});
-		
-		$scope.createPaath = function () {
-			if (!$scope.data.formValid) {
-				return;
-			}
+function CreatePaathController($scope, $state) {
+	var vm = this;
 
-			$meteor.call('createPaath', {
-				title: $scope.data.title
-			});
+	vm.data = {
+		title: "",
+		formValid: false
+	};
 
-			$state.go('paaths');
-		};
+	vm.createPaath = createPaath;
+
+	$scope.$watch("vm.data.title", function () {
+		vm.data.formValid = !(_.isEmpty(vm.data.title));
 	});
+		
+	//////////
+		
+	function createPaath() {
+		if (!vm.data.formValid) {
+			return;
+		}
+
+		Meteor.call('createPaath', {
+			title: vm.data.title
+		});
+
+		$state.go('paaths');
+	};
+};

@@ -1,16 +1,30 @@
-angular.module('sehajPaathTracker')  
-.controller('PaathSettingsCtrl', function($scope, $stateParams, $meteor, $state, $ionicHistory) {
-	var paathId = $stateParams.paathId;
-	$scope.paath = $scope.$meteorObject(Paaths, paathId, false);
+angular.module('sehajPaathTracker')
+	.controller('PaathSettingsCtrl', PaathSettingsController);
+
+function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive) {
+	$reactive(this).attach($scope);
+
+	var vm = this,
+	 	paathId = $stateParams.paathId;
+
+	vm.helpers({
+		paath() { 
+			return Paaths.findOne(paathId); 
+		} 
+	});
 	
-	$scope.deletePaath = function(){
-		$meteor.call("deletePaath", $scope.paath._id);
-		
+	vm.deletePaath = deletePaath;
+	
+	////////////
+
+	function deletePaath() {
+		Meteor.call("deletePaath", vm.paath._id);
+
 		$ionicHistory.nextViewOptions({
 			historyRoot: true,
 			disableAnimate: true
 		});
-		
+
 		$state.go("paaths");
-	};
-});
+	}
+}

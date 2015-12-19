@@ -3,7 +3,7 @@
         <form class="list">
             <label class="item item-input" name="title">
                 <span class="input-label">Title</span>
-                <input type="text" placeholder="Enter title for paath" ng-model="paath.title">
+                <input type="text" placeholder="Enter title for paath" ng-model="vm.paath.title">
             </label>
         </form>
         <div class="list card">
@@ -19,6 +19,6 @@
                 </form>
             </div>
         </div>
-        <button class="button button-assertive button-block" ng-click="deletePaath()">Delete</button>
+        <button class="button button-assertive button-block" ng-click="vm.deletePaath()">Delete</button>
     </ion-content>
 </ion-view>
