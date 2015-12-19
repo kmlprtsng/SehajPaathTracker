@@ -23,7 +23,7 @@ angular.module('sehajPaathTracker')
 			.state('paathSettings', {
 				url: '/paaths/:paathId/settings',
 				templateUrl: 'client/templates/paathSettings.html',
-				controller: 'PaathSettingsCtrl',
+				controller: 'PaathSettingsCtrl as vm',
 				authRequired: true
 			})
 			.state('paathDetails', {
