@@ -40,13 +40,19 @@ angular.module('sehajPaathTracker')
 				url: '/paaths/:paathId/paath-log/add',
 				templateUrl: 'client/templates/paathLogForm.html',
 				controller: 'PaathLogFormCtrl as vm',
-				authRequired: true
+				authRequired: true,
+				resolve: {
+					paathLogStatues: function(){ return PaathLogStatuses; }
+				}
 			})
 			.state('editPaathLog', {
 				url: '/paaths/:paathId/paath-log/:paathLogId',
 				templateUrl: 'client/templates/paathLogForm.html',
 				controller: 'PaathLogFormCtrl as vm',
-				authRequired: true
+				authRequired: true,
+				resolve: {
+					paathLogStatues: function(){ return PaathLogStatuses; }
+				}
 			});
 
 		$urlRouterProvider.otherwise('/login');
