@@ -1,6 +1,6 @@
 angular
     .module('sehajPaathTracker')
-    .run(function ($ionicHistory, $state) {
+    .run(function ($ionicHistory, $state, postSignupDetails) {
 		AccountsTemplates.options.onSubmitHook = onSubmitHook;
 		AccountsTemplates.options.onLogoutHook = onLogoutHook;
 		
@@ -11,6 +11,8 @@ angular
 			});
 
 			$state.go("paaths");
+			
+			postSignupDetails.show();
 		}
 
 		function onLogoutHook() {

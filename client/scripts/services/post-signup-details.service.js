@@ -3,29 +3,35 @@ angular
   .service('postSignupDetails', PostSignup);
 
 function PostSignup($rootScope, $ionicModal) {
+  var service = this;
   var templateUrl = 'client/templates/postSignUpDetails.html';
 
-  this.showModal = showModal;
-  this.hideModal = hideModal;
-
-  //TODO-KC only show this if the user's name is null
+  service.show = show;
+  service.hideModal = hideModal;
 
   ////////////
+  
+  function show(){
+    var user = Meteor.user();
+    if(_.isEmpty(user.profile) || _.isEmpty(user.profile.name)){
+      showModal();
+    }
+  }
 
   function showModal () {
-    this._scope = $rootScope.$new();
+    service._scope = $rootScope.$new();
 
     $ionicModal.fromTemplateUrl(templateUrl, {
-      scope: this._scope,
+      scope: service._scope,
       backdropClickToClose: false
-    }).then((modal) => {
-      this._modal = modal;
+    }).then(function(modal){
+      service._modal = modal;
       modal.show();
     });
   }
 
   function hideModal () {
-    this._scope.$destroy();
-    this._modal.remove();
+    service._scope.$destroy();
+    service._modal.remove();
   }
 }
