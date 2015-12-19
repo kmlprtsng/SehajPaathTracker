@@ -1,34 +1,24 @@
-(function () {
-	function redirect(routePaath, setHistoryRoot) {
-		var injector = angular.element(document.body).injector(),
-			$ionicHistory = injector.get('$ionicHistory'),
-			$state = injector.get('$state');
-
-		if (setHistoryRoot) {
+angular
+    .module('sehajPaathTracker')
+    .run(function ($ionicHistory, $state) {
+		AccountsTemplates.options.onSubmitHook = onSubmitHook;
+		AccountsTemplates.options.onLogoutHook = onLogoutHook;
+		
+		///////////////
+		function onSubmitHook() {
 			$ionicHistory.nextViewOptions({
 				historyRoot: true
 			});
+
+			$state.go("paaths");
 		}
 
-		$state.go(routePaath);
-	}
+		function onLogoutHook() {
+			$ionicHistory.nextViewOptions({
+				historyRoot: true
+			});
 
-	var mySubmitFunc = function (error, state) {
-		console.log("submit clicked");
-		if (!error) {
-			if (state === "signIn" || state === "signUp") {
-				redirect("paaths", true);
-			}
+			$state.go("login");
 		}
-	};
-	
-	var logoutFunc = function(){
-		redirect("login", true);
-	}
 
-	AccountsTemplates.configure({
-		onSubmitHook: mySubmitFunc,
-		onLogoutHook: logoutFunc
-	});
-
-})();
+    });
