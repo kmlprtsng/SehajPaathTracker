@@ -7,7 +7,7 @@ function PaathHistoryLogsController($scope, $stateParams, $reactive) {
 	var vm = this,
 		paathId = $stateParams.paathId;
 
-	this.helpers({
+	vm.helpers({
 		paath() { 
 			return Paaths.findOne(paathId); 
 		} 

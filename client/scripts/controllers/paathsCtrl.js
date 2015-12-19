@@ -4,7 +4,9 @@ angular.module('sehajPaathTracker')
 function PaathsController($scope, $reactive) {
 	$reactive(this).attach($scope);
 
-	this.helpers({
+	var vm = this;
+	
+	vm.helpers({
 		paaths() {
 			return Paaths.find();
 		}
