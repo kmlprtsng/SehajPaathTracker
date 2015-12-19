@@ -1,6 +1,6 @@
 angular.module('sehajPaathTracker')
 	.controller('PaathsCtrl', function ($scope, $reactive) {
-		$reactive(this).attach($scope)
+		$reactive(this).attach($scope);
 		
 		this.helpers({
 			paaths() {
