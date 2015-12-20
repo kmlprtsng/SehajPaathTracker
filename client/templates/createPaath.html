@@ -29,8 +29,8 @@
                     </div>
                 </form>
                 <ion-list>
-                    <ion-item ng-repeat="person in vm.people">
-                        {{person.name}}
+                    <ion-item ng-repeat="person in vm.people track by person._id">
+                        {{person.profile.name}}
                     </ion-item>
                 </ion-list>
             </div>
