@@ -5,14 +5,18 @@ angular
 		AccountsTemplates.options.onLogoutHook = onLogoutHook;
 		
 		///////////////
-		function onSubmitHook() {
-			$ionicHistory.nextViewOptions({
-				historyRoot: true
-			});
+		function onSubmitHook(error, state) {
+			if (!error) {
+				if (state === "signIn" || state === "signUp") {
+					$ionicHistory.nextViewOptions({
+						historyRoot: true
+					});
 
-			$state.go("paaths");
-			
-			postSignupDetails.show();
+					$state.go("paaths");
+
+					postSignupDetails.show();
+				}
+			}
 		}
 
 		function onLogoutHook() {
