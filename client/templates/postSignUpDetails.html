@@ -1,0 +1,25 @@
+<ion-modal-view ng-controller="PostSignupDetailsCtrl as vm">
+  <ion-header-bar>
+    <h1 class="title">Welcome Khalsa Ji</h1>
+    <div class="buttons">
+      <button 
+        class="button button-clear" 
+        ng-class="{'button-positive': vm.formValid}"
+        ng-click="vm.save()">
+        Save</button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content>
+    <div class="text-center padding">
+      Please tell us your full name
+    </div>
+
+    <div class="list padding-top">
+      <label class="item item-input">
+        <input ng-model="vm.profile.name" type="text" placeholder="Full name">
+      </label>
+    </div>
+
+  </ion-content>
+</ion-modal-view>
