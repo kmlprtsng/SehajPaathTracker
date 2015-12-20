@@ -11,10 +11,13 @@
         'Must be logged to create a paath.');
     }
 
+    //TODO-KC don't let duplicates be added and the stop the current user from adding himself.
+    
     var paathObj = {
       title: paath.title,
       createdAt: new Date(),
-      users: [{ id: this.userId, isAdmin: true }]
+      users: paath.userIds,
+      adminId: this.userId
     };
 
     var paathId = Paaths.insert(paathObj);

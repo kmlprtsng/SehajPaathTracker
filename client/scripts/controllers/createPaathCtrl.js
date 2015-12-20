@@ -29,9 +29,12 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive) {
 		if (!vm.data.formValid) {
 			return;
 		}
+		
+		var userIds = _.pluck(vm.people, "_id");
 
 		Meteor.call('createPaath', {
-			title: vm.data.title
+			title: vm.data.title,
+			userIds: userIds
 		});
 
 		$state.go('paaths');
@@ -72,8 +75,12 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive) {
 		vm.people.push(user);
 
 		delete vm.data.email;
-		//save users into the db
+		//convert this to a service
 		
-		//convert this to 
+		// create filter for people with missing profile names
+		
+		//stop the enter causing multiple popups.
+		
+		//protect data going into the database.
 	}
 };

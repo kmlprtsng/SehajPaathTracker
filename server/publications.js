@@ -5,5 +5,5 @@ Meteor.publish('users', function () {
 Meteor.publish('paaths', function () {
 	if (! this.userId) return;
   	
-	return Paaths.find({ 'users.id' : this.userId});
+	return Paaths.find({ 'users' : this.userId});
 });
