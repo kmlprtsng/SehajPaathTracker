@@ -10,6 +10,12 @@ function CreatePaathController($scope, $state) {
 	};
 
 	vm.createPaath = createPaath;
+	vm.people = [{
+		name: "Jasvinder Kaur"
+	},
+	{
+		name: "Satvinder Kaur"
+	}];
 
 	$scope.$watch("vm.data.title", function () {
 		vm.data.formValid = !(_.isEmpty(vm.data.title));
