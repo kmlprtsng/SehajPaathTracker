@@ -9,27 +9,32 @@
                     <input type="text" placeholder="Paath Title" ng-model="vm.data.title">
                 </label>
             </div>
-
-            <div class="card list">
-                <div class="item item-divider">Add People</div>
-                <div class="item item-body">
-                    <div class="list">
-                        <div class="item item-input-inset">
-                            <label class="item-input-wrapper">
-                                <input type="text" placeholder="Email">
-                            </label>
-                            <button class="button button-small button-primary">
-                                Add
-                            </button>
-                        </div>
-                    </div>
-                    <ion-list>
-                        <ion-item ng-repeat="person in vm.people">
-                            {{person.name}}
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </div>
         </form>
+        
+        <div class="card list">
+            <div class="item item-divider">Add People</div>
+            <div class="item item-body">
+                <form class="list m-b-none" novalidate name="vm.addPeopleForm">
+                    <div class="item item-input-inset">
+                        <label class="item-input-wrapper">
+                            <input 
+                                name="email"
+                                type="email" 
+                                placeholder="Email" 
+                                ng-model="vm.data.email">
+                        </label>
+                        <button class="button button-small button-primary" ng-click="vm.addPerson()">
+                            Add
+                        </button>
+                    </div>
+                </form>
+                <ion-list>
+                    <ion-item ng-repeat="person in vm.people">
+                        {{person.name}}
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
     </ion-content>
 </ion-view>
