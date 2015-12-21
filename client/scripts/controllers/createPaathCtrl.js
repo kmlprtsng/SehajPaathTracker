@@ -41,7 +41,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	};
 
 	function addPerson() {
-		if (vm.addPeopleForm.email.$error.email) {
+		if (_.isEmpty(vm.data.email) || vm.addPeopleForm.email.$error.email) {
 			return $ionicPopup.alert({
 				title: "Invalid Email",
 				template: '<center>Please enter valid email pyario !!</center>'
