@@ -14,6 +14,6 @@ function nameFilter(){
         
         let hasName = user && user.profile && user.profile.name;
         
-        return hasName ? user.profile.name : "No Name";
+        return hasName ? user.profile.name : user.emails[0].address;
     };
 }
