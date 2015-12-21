@@ -5,7 +5,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	$reactive(this).attach($scope);
 
 	var vm = this;
-	var loggedInUser = Meteor.user();
+	vm.loggedInUser = Meteor.user();
 
 	vm.data = {
 		title: "",
@@ -15,7 +15,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	vm.createPaath = createPaath;
 	vm.addPerson = addPerson;
 
-	vm.people = [loggedInUser];
+	vm.people = [vm.loggedInUser];
 
 	$scope.$watch("vm.data.title", function () {
 		vm.data.formValid = !(_.isEmpty(vm.data.title));
@@ -54,9 +54,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
             delete vm.data.email;
         }
 		
-        // create filter for people with missing profile names
-		
-		//stop the enter causing multiple popups.
+        //stop the enter causing multiple popups.
 		
 		//protect data going into the database.
 	}
