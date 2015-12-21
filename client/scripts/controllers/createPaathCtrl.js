@@ -53,9 +53,5 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 		if(userSuccessfullyAdded){
             delete vm.data.email;
         }
-		
-        //stop the enter causing multiple popups.
-		
-		//protect data going into the database.
 	}
 };
