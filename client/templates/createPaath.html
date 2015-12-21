@@ -30,7 +30,7 @@
                 </form>
                 <ion-list>
                     <ion-item ng-repeat="person in vm.people track by person._id">
-                        {{person.profile.name}}
+                        {{person | name}}
                     </ion-item>
                 </ion-list>
             </div>
