@@ -13,9 +13,10 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	};
 
 	vm.createPaath = createPaath;
-	vm.addPerson = addPerson;
+	vm.addUser = addUser;
 
-	vm.people = [vm.loggedInUser];
+	vm.users = [vm.loggedInUser];
+    vm.userFormEmail = "";
 
 	$scope.$watch("vm.data.title", function () {
 		vm.data.formValid = !(_.isEmpty(vm.data.title));
@@ -30,7 +31,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 			return;
 		}
 		
-		var userIds = _.pluck(vm.people, "_id");
+		var userIds = _.pluck(vm.users, "_id");
 
 		Meteor.call('createPaath', {
 			title: vm.data.title,
@@ -40,18 +41,11 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 		$state.go('paaths');
 	};
 
-	function addPerson() {
-		if (_.isEmpty(vm.data.email) || vm.addPeopleForm.email.$error.email) {
-			return $ionicPopup.alert({
-				title: "Invalid Email",
-				template: '<center>Please enter valid email pyario !!</center>'
-			});
-		}
-
-        var userSuccessfullyAdded = addPersonToPaath.addUserToPaath(vm.data.email, vm.people);
+	function addUser(email) {
+        var userSuccessfullyAdded = addPersonToPaath.addUserToPaath(vm.userFormEmail, vm.users);
         
 		if(userSuccessfullyAdded){
-            delete vm.data.email;
+            delete vm.userFormEmail;
         }
 	}
 };

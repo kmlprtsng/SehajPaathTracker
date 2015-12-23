@@ -1,0 +1,21 @@
+<div class="card list">
+    <div class="item item-divider">Add People</div>
+    <div class="item item-body">
+        <form class="list m-b-none" novalidate name="vm.addUserForm">
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <input name="email" type="email" placeholder="Email" ng-model="vm.formEmailValue">
+                </label>
+                <button class="button button-small button-primary" ng-click="vm.addUser()">
+                    Add
+                </button>
+            </div>
+        </form>
+        <ion-list>
+            <ion-item ng-repeat="user in vm.users track by user._id">
+                {{user | name}}
+                <span class="item-note" ng-if="user._id === vm.loggedInUser._id">admin</span>
+            </ion-item>
+        </ion-list>
+    </div>
+</div>

@@ -18,7 +18,7 @@ function addPersonToPaathService($ionicPopup){
             
             return false;
 		}
-		
+        
         var loggedInUser = Meteor.user();
 		var userFromDb = Meteor.users.findOne({
 			_id: { $ne: loggedInUser._id },

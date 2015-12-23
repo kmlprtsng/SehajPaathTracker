@@ -11,27 +11,6 @@
             </div>
         </form>
 
-        <div class="card list">
-            <div class="item item-divider">Add People</div>
-            <div class="item item-body">
-                <form class="list m-b-none" novalidate name="vm.addPeopleForm">
-                    <div class="item item-input-inset">
-                        <label class="item-input-wrapper">
-                            <input name="email" type="email" placeholder="Email" ng-model="vm.data.email">
-                        </label>
-                        <button class="button button-small button-primary" ng-click="vm.addPerson()">
-                            Add
-                        </button>
-                    </div>
-                </form>
-                <ion-list>
-                    <ion-item ng-repeat="person in vm.people track by person._id">
-                        {{person | name}}
-                        <span class="item-note" ng-if="person._id === vm.loggedInUser._id">admin</span>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
-
+        <paath-users users="vm.users" on-add-user="vm.addUser()" form-email-value="vm.userFormEmail"></paath-users>
     </ion-content>
 </ion-view>
