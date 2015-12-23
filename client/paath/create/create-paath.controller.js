@@ -42,10 +42,10 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	};
 
 	function addUser(email) {
-        var userSuccessfullyAdded = addPersonToPaath.addUserToPaath(vm.addUserFormEmail, vm.users);
+        var newUser = addPersonToPaath.addUserToPaath(vm.addUserFormEmail, vm.users);
         
-		if(userSuccessfullyAdded){
-            delete vm.userFormEmail;
+		if(newUser){
+            delete vm.addUserFormEmail;
         }
 	}
 };

@@ -16,7 +16,7 @@ function addPersonToPaathService($ionicPopup){
 				template: "<center>This person is already added to the list.</center>"
 			});
             
-            return false;
+            return null;
 		}
         
         var loggedInUser = Meteor.user();
@@ -31,10 +31,10 @@ function addPersonToPaathService($ionicPopup){
 				template: "<center>The user with this email address has not yet registered. Please get them to sign up first.</center>"
 			});
             
-            return false;
+            return null;
 		}
         
         existingUsers.push(userFromDb);
-        return true;
+        return userFromDb;
     }
 }
