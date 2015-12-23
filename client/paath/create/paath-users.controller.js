@@ -10,7 +10,7 @@ function PaathUsersController($ionicPopup){
     ////////
     
     function addUser(){
-        if (_.isEmpty(vm.formEmailValue) || vm.addUserForm.email.$error.email) {
+        if (_.isEmpty(vm.email) || vm.addUserForm.email.$error.email) {
 			return $ionicPopup.alert({
 				title: "Invalid Email",
 				template: '<center>Please enter valid email pyario !!</center>'

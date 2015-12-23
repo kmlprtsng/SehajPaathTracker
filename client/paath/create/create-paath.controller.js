@@ -16,7 +16,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	vm.addUser = addUser;
 
 	vm.users = [vm.loggedInUser];
-    vm.userFormEmail = "";
+    vm.addUserFormEmail = "";
 
 	$scope.$watch("vm.data.title", function () {
 		vm.data.formValid = !(_.isEmpty(vm.data.title));
@@ -42,7 +42,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	};
 
 	function addUser(email) {
-        var userSuccessfullyAdded = addPersonToPaath.addUserToPaath(vm.userFormEmail, vm.users);
+        var userSuccessfullyAdded = addPersonToPaath.addUserToPaath(vm.addUserFormEmail, vm.users);
         
 		if(userSuccessfullyAdded){
             delete vm.userFormEmail;

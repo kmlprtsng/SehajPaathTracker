@@ -10,7 +10,7 @@ function paathUsersDirective() {
         bindToController: {
             users: '=',
             onAddUser: "&",
-            formEmailValue: '=' 
+            email: '=emailInput' 
         },
         templateUrl: 'client/paath/create/paath-users.html'
     };
