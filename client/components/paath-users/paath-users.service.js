@@ -1,11 +1,11 @@
 angular
     .module("sehajPaathTracker")
-    .service("addPersonToPaath", addPersonToPaathService);
+    .service("paathUsers", paathUsersService);
     
-function addPersonToPaathService($ionicPopup){
+function paathUsersService($ionicPopup){
     var service = this;
     
-    service.addUserToPaath = function(email, existingUsers){
+    service.findNewUserByEmail = function(email, existingUsers){
         var alreadyExistingUser = _.find(existingUsers, function (user) {
 			return _.isEqual(user.emails[0].address, email);
 		});
@@ -16,9 +16,9 @@ function addPersonToPaathService($ionicPopup){
 				template: "<center>This person is already added to the list.</center>"
 			});
             
-            return false;
+            return null;
 		}
-		
+        
         var loggedInUser = Meteor.user();
 		var userFromDb = Meteor.users.findOne({
 			_id: { $ne: loggedInUser._id },
@@ -31,10 +31,9 @@ function addPersonToPaathService($ionicPopup){
 				template: "<center>The user with this email address has not yet registered. Please get them to sign up first.</center>"
 			});
             
-            return false;
+            return null;
 		}
         
-        existingUsers.push(userFromDb);
-        return true;
+        return userFromDb;
     }
 }

@@ -1,30 +1,77 @@
 angular.module('sehajPaathTracker')
-	.controller('PaathSettingsCtrl', PaathSettingsController);
+    .controller('PaathSettingsCtrl', PaathSettingsController);
 
-function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive) {
-	$reactive(this).attach($scope);
+function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive, paathUsers, $ionicModal) {
+    $reactive(this).attach($scope);
 
-	var vm = this,
-	 	paathId = $stateParams.paathId;
+    var vm = this,
+        paathId = $stateParams.paathId;
 
-	vm.helpers({
-		paath() { 
-			return Paaths.findOne(paathId); 
-		} 
-	});
-	
-	vm.deletePaath = deletePaath;
-	
-	////////////
+    vm.addUserForEmail = "";
+    vm.editPaathTitle = false;
+    
+    vm.subscribe('paaths');
+    vm.subscribe('users');
 
-	function deletePaath() {
-		Meteor.call("deletePaath", vm.paath._id);
+    vm.helpers({
+        paath() {
+            return Paaths.findOne(paathId);
+        }
+    });
 
-		$ionicHistory.nextViewOptions({
-			historyRoot: true,
-			disableAnimate: true
-		});
+    var paathWatch = $scope.$watch("vm.paath", function () {
+        if (vm.paath) {
+            vm.helpers({
+                users() {
+                    return Meteor.users.find({ _id: { $in: vm.paath.users } });
+                }
+            });
 
-		$state.go("paaths");
-	}
+            paathWatch();
+        }
+    });
+
+    vm.addUser = addUser;
+    vm.deletePaath = deletePaath;
+    vm.showTitleModal = showTitleModal;
+    vm.titleModal = {
+        show: false,
+        onSave: onTitleModalSave,
+        onCancel: onTitleModalCancel
+    };
+    
+    ////////////
+    
+    function addUser() {
+        var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
+
+        if (newUser) {
+            Meteor.call("addUserToPaath", vm.paath._id, newUser._id);
+            delete vm.addUserFormEmail;
+        }
+    }
+
+    function deletePaath() {
+        Meteor.call("deletePaath", vm.paath._id);
+
+        $ionicHistory.nextViewOptions({
+            historyRoot: true,
+            disableAnimate: true
+        });
+
+        $state.go("paaths");
+    }
+
+    function showTitleModal() {
+        vm.titleModal.show = true;
+    }
+    
+    function onTitleModalSave(newTitle){
+        Meteor.call('updatePaathTitle', paathId, newTitle);
+        vm.titleModal.show = false;
+    }
+    
+    function onTitleModalCancel(){
+        vm.titleModal.show = false;
+    }
 }

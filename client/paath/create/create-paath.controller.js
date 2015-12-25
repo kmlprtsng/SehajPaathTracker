@@ -1,7 +1,7 @@
 angular.module('sehajPaathTracker')
 	.controller('CreatePaathCtrl', CreatePaathController);
 
-function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPersonToPaath) {
+function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUsers) {
 	$reactive(this).attach($scope);
 
 	var vm = this;
@@ -13,15 +13,16 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	};
 
 	vm.createPaath = createPaath;
-	vm.addPerson = addPerson;
+	vm.addUser = addUser;
 
-	vm.people = [vm.loggedInUser];
+	vm.users = [vm.loggedInUser];
+    vm.addUserFormEmail = "";
 
 	$scope.$watch("vm.data.title", function () {
 		vm.data.formValid = !(_.isEmpty(vm.data.title));
 	});
 
-	this.subscribe('users');
+	vm.subscribe('users');
 		
 	//////////
 		
@@ -30,7 +31,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 			return;
 		}
 		
-		var userIds = _.pluck(vm.people, "_id");
+		var userIds = _.pluck(vm.users, "_id");
 
 		Meteor.call('createPaath', {
 			title: vm.data.title,
@@ -40,18 +41,12 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 		$state.go('paaths');
 	};
 
-	function addPerson() {
-		if (_.isEmpty(vm.data.email) || vm.addPeopleForm.email.$error.email) {
-			return $ionicPopup.alert({
-				title: "Invalid Email",
-				template: '<center>Please enter valid email pyario !!</center>'
-			});
-		}
-
-        var userSuccessfullyAdded = addPersonToPaath.addUserToPaath(vm.data.email, vm.people);
+	function addUser(email) {
+        var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
         
-		if(userSuccessfullyAdded){
-            delete vm.data.email;
+		if(newUser){
+            vm.users.push(newUser);
+            delete vm.addUserFormEmail;
         }
 	}
 };
