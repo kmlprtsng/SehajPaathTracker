@@ -9,7 +9,12 @@
     function addUserToPaath(paathId, userId) {
         Meteor.call("validateUser");
         
-        //TODO-KC ensure that user doesn't already exist
+        var countQuery = Paaths.find({_id: paathId, users: userId}).count();
+        
+        if(countQuery > 0){
+            return;
+        }
+       
         Paaths.update(
             { _id: paathId },
             { $push: { users: userId } }
