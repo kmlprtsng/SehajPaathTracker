@@ -42,7 +42,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUser
 	};
 
 	function addUser(email) {
-        var newUser = paathUsers.findUser(vm.addUserFormEmail, vm.users);
+        var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
         
 		if(newUser){
             vm.users.push(newUser);

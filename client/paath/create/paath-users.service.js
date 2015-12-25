@@ -5,7 +5,7 @@ angular
 function paathUsersService($ionicPopup){
     var service = this;
     
-    service.findUser = function(email, existingUsers){
+    service.findNewUserByEmail = function(email, existingUsers){
         var alreadyExistingUser = _.find(existingUsers, function (user) {
 			return _.isEqual(user.emails[0].address, email);
 		});

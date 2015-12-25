@@ -34,7 +34,7 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
     
     ////////////
     function addUser(){
-        var newUser = paathUsers.findUser(vm.addUserFormEmail, vm.users);
+        var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
         
         //TODO-KC see if the users are immediately shown on other screens.
         
