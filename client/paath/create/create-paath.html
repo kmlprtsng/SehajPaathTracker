@@ -11,6 +11,6 @@
             </div>
         </form>
 
-        <paath-users users="vm.users" on-add-user="vm.addUser()" email-input="vm.addUserFormEmail"></paath-users>
+        <paath-users users="vm.users" on-add-user="vm.addUser()" email-input="vm.addUserFormEmail" admin-id="vm.loggedInUser._id"></paath-users>
     </ion-content>
 </ion-view>

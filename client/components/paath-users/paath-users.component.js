@@ -10,7 +10,8 @@ function paathUsersDirective() {
         bindToController: {
             users: '=',
             onAddUser: "&",
-            email: '=emailInput' 
+            email: '=emailInput',
+            adminId: '='
         },
         templateUrl: 'client/components/paath-users/paath-users.html'
     };
