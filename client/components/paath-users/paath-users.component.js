@@ -12,6 +12,6 @@ function paathUsersDirective() {
             onAddUser: "&",
             email: '=emailInput' 
         },
-        templateUrl: 'client/paath/create/paath-users.html'
+        templateUrl: 'client/components/paath-users/paath-users.html'
     };
 }
