@@ -12,7 +12,22 @@ function EditPaathTitleController($scope, $reactive, $ionicModal) {
         title : vm.title()
     }
     
+    vm.formValid = false;
+    
     loadModal();
+    
+    $scope.$watch("vm.form.title", function(newVal, oldVal){
+        if(newVal === oldVal){
+            return;
+        }
+        
+        if(_.isEmpty(vm.form.title)){
+            vm.formValid = false;
+        }
+        else{
+            vm.formValid = true;
+        }
+    });
     
     ///////////
     
@@ -23,8 +38,9 @@ function EditPaathTitleController($scope, $reactive, $ionicModal) {
     }
     
     function saveEditTitleModel() {
-        //only highlight the save button if the value has been modified to something else and is filled in i.e. not empty
-        //if title is the same or empty then do not update
+        if(!vm.formValid){
+            return;
+        }
         
         vm.modal.hide();
         vm.onSave()(vm.form.title);
