@@ -1,7 +1,7 @@
 angular.module('sehajPaathTracker')
 	.controller('CreatePaathCtrl', CreatePaathController);
 
-function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPersonToPaath) {
+function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUsers) {
 	$reactive(this).attach($scope);
 
 	var vm = this;
@@ -22,7 +22,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 		vm.data.formValid = !(_.isEmpty(vm.data.title));
 	});
 
-	this.subscribe('users');
+	vm.subscribe('users');
 		
 	//////////
 		
@@ -42,9 +42,10 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, addPerson
 	};
 
 	function addUser(email) {
-        var newUser = addPersonToPaath.addUserToPaath(vm.addUserFormEmail, vm.users);
+        var newUser = paathUsers.findUser(vm.addUserFormEmail, vm.users);
         
 		if(newUser){
+            vm.users.push(newUser);
             delete vm.addUserFormEmail;
         }
 	}

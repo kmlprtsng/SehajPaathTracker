@@ -1,15 +1,14 @@
 angular.module('sehajPaathTracker')
     .controller('PaathSettingsCtrl', PaathSettingsController);
 
-function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive, addPersonToPaath) {
+function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive, paathUsers) {
     $reactive(this).attach($scope);
 
     var vm = this,
         paathId = $stateParams.paathId;
 
-    vm.users = [];
     vm.addUserForEmail = "";
-
+    vm.subscribe('paaths');
     vm.subscribe('users');
 
     vm.helpers({
@@ -20,7 +19,12 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
 
     var paathWatch = $scope.$watch("vm.paath", function () {
         if (vm.paath) {
-            vm.users = Meteor.users.find({ _id: { $in: vm.paath.users } }).fetch();
+            vm.helpers({
+                users() {
+                    return Meteor.users.find({ _id: { $in: vm.paath.users } });
+                }
+            });
+            
             paathWatch();
         }
     });
@@ -30,7 +34,7 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
     
     ////////////
     function addUser(){
-        var newUser = addPersonToPaath.addUserToPaath(vm.addUserFormEmail, vm.users);
+        var newUser = paathUsers.findUser(vm.addUserFormEmail, vm.users);
         
         //TODO-KC see if the users are immediately shown on other screens.
         

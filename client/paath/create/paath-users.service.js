@@ -1,11 +1,11 @@
 angular
     .module("sehajPaathTracker")
-    .service("addPersonToPaath", addPersonToPaathService);
+    .service("paathUsers", paathUsersService);
     
-function addPersonToPaathService($ionicPopup){
+function paathUsersService($ionicPopup){
     var service = this;
     
-    service.addUserToPaath = function(email, existingUsers){
+    service.findUser = function(email, existingUsers){
         var alreadyExistingUser = _.find(existingUsers, function (user) {
 			return _.isEqual(user.emails[0].address, email);
 		});
@@ -34,7 +34,6 @@ function addPersonToPaathService($ionicPopup){
             return null;
 		}
         
-        existingUsers.push(userFromDb);
         return userFromDb;
     }
 }
