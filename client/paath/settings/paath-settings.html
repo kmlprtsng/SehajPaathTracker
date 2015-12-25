@@ -1,7 +1,7 @@
 <ion-view title="Settings">
     <ion-content padding="false" class="has-header">
         <div class="list m-t-lg">
-            <div class="item item-fancy item-constrained" ng-click="vm.editTitle()">
+            <div class="item item-fancy item-constrained" ng-click="vm.showTitleModal()">
                 {{vm.paath.title}}
 
                 <div class="item-icon-right">
@@ -11,6 +11,13 @@
         </div>
 
         <paath-users users="vm.users" on-add-user="vm.addUser()" email-input="vm.addUserFormEmail"></paath-users>
+        
+        <edit-paath-title 
+            title="vm.paath.title" 
+            ng-if="vm.titleModal.show" 
+            on-save="vm.titleModal.onSave" 
+            on-cancel="vm.titleModal.onCancel">
+        </edit-paath-title>
 
         <button class="button button-assertive button-block" ng-click="vm.deletePaath()">Delete</button>
     </ion-content>
