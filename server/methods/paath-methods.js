@@ -2,27 +2,22 @@
     Meteor.methods({
         addUserToPaath: addUserToPaath,
         createPaath: createPaath,
-        deletePaath: deletePaath
+        deletePaath: deletePaath,
+        updatePaathTitle: updatePaathTitle
     });
 
-    function addUserToPaath(paathId, userId){
-        if (!this.userId) {
-            throw new Meteor.Error('not-logged-in',
-                'Must be logged to create a paath.');
-        }
+    function addUserToPaath(paathId, userId) {
+        Meteor.call("validateUser");
         
         //TODO-KC ensure that user doesn't already exist
         Paaths.update(
-            {_id: paathId},
+            { _id: paathId },
             { $push: { users: userId } }
-        );
+            );
     }
-    
+
     function createPaath(paath) {
-        if (!this.userId) {
-            throw new Meteor.Error('not-logged-in',
-                'Must be logged to create a paath.');
-        }
+        Meteor.call("validateUser");
 
         paath.userIds.push(this.userId);
         paath.userIds = _.uniq(paath.userIds);
@@ -46,11 +41,16 @@
     }
 
     function deletePaath(paathId) {
-        if (!this.userId) {
-            throw new Meteor.Error('not-logged-in',
-                'Must be logged to create a paath.');
-        }
-        
+        Meteor.call("validateUser");
+
         return Paaths.remove({ _id: paathId });
+    }
+
+    function updatePaathTitle(paathId, newTitle) {
+        Meteor.call("validateUser");
+
+        Paaths.update(
+            { _id: paathId },
+            { $set: { title: newTitle } });
     }
 })();

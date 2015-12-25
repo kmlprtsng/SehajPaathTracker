@@ -4,7 +4,7 @@
     });
     
     function savePostSignupDetails(profile) {
-        validateUser();
+        Meteor.call("validateUser");
 
         if (profile.name.length === 0) {
             throw Meteor.Error('name-required', "Must provide user's name");
