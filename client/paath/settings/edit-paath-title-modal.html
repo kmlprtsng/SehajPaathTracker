@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <div class="buttons">
+            <button class="button button-clear button-primary" ng-click="vm.cancelEditTitleModel()">Cancel</button>
+        </div>
+        <h1 class="title">Paath Title</h1>
+        <div class="buttons">
+            <button 
+                class="button button-clear"
+                ng-class="{'button-primary': vm.paath.title }"
+                ng-click="vm.saveEditTitleModel()">
+                Save
+                </button>
+        </div>
+    </ion-header-bar>
+    <ion-content padding="true">
+        <form class="m-t-lg">
+            <div class="list">
+                <label class="item item-input item-fancy">
+                    <input type="text" placeholder="Paath Title" ng-model="vm.paath.title">
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-modal-view>

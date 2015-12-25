@@ -1,7 +1,7 @@
 angular.module('sehajPaathTracker')
     .controller('PaathSettingsCtrl', PaathSettingsController);
 
-function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive, paathUsers) {
+function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive, paathUsers, $ionicModal) {
     $reactive(this).attach($scope);
 
     var vm = this,
@@ -24,22 +24,31 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
                     return Meteor.users.find({ _id: { $in: vm.paath.users } });
                 }
             });
-            
+
             paathWatch();
         }
     });
 
     vm.addUser = addUser;
+    vm.cancelEditTitleModel = cancelEditTitleModel;
     vm.deletePaath = deletePaath;
+    vm.editTitle = editTitle;
+    vm.saveEditTitleModel = saveEditTitleModel;
+
+    setupTitleModal();
     
     ////////////
-    function addUser(){
+    function addUser() {
         var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
-        
-		if(newUser){
+
+        if (newUser) {
             Meteor.call("addUserToPaath", vm.paath._id, newUser._id);
             delete vm.addUserFormEmail;
         }
+    }
+
+    function cancelEditTitleModel() {
+        vm.modal.hide();
     }
 
     function deletePaath() {
@@ -51,5 +60,28 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
         });
 
         $state.go("paaths");
+    }
+
+    function editTitle() {
+        vm.modal.show();
+    }
+    
+    function saveEditTitleModel(){
+        //only highlight the save button if the value has been modified to something else and is filled in i.e. not tempy
+        
+        //if title is the same or empty then do not update
+        
+        Meteor.call('updatePaathTitle', paathId, vm.paath.title);
+        vm.modal.hide();
+    }
+
+    function setupTitleModal() {
+        $ionicModal.fromTemplateUrl('client/paath/settings/edit-paath-title-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            vm.modal = modal;
+            vm.modal.show();
+        });
     }
 }
