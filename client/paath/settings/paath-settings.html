@@ -1,14 +1,17 @@
 <ion-view title="Settings">
     <ion-content padding="false" class="has-header">
-        <form class="list">
-            <label class="item item-input" name="title">
-                <span class="input-label">Title</span>
-                <input type="text" placeholder="Enter title for paath" ng-model="vm.paath.title">
-            </label>
-        </form>
-        
+        <div class="list m-t-lg">
+            <div class="item">
+                {{vm.paath.title}}
+
+                <div class="item-icon-right">
+                    <i class="icon ion-chevron-right icon-accessory"></i>
+                </div>
+            </div>
+        </div>
+
         <paath-users users="vm.users" on-add-user="vm.addUser()" email-input="vm.addUserFormEmail"></paath-users>
-        
+
         <button class="button button-assertive button-block" ng-click="vm.deletePaath()">Delete</button>
     </ion-content>
 </ion-view>
