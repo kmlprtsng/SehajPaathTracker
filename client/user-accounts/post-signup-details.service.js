@@ -4,7 +4,7 @@ angular
 
 function PostSignup($rootScope, $ionicModal) {
   var service = this;
-  var templateUrl = 'client/templates/postSignUpDetails.html';
+  var templateUrl = 'client/user-accounts/post-signup-details.html';
 
   service.show = show;
   service.hideModal = hideModal;
