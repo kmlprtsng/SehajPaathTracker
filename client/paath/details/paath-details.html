@@ -38,15 +38,15 @@
             </div>
          </div>
         <div class="userPaathStatus-list">
-            <div class="userPaathStatus">
-                <div class="userPaathStatus-name">Kamalpreet Singh</div>
+            <div class="userPaathStatus" ng-repeat="user in vm.users track by user._id">
+                <div class="userPaathStatus-name">{{user | name}}</div>
                 <div class="userPaathStatus-latest">You have assigned yourself Ang 10 to 15</div>
                 <div class="userPaathStatus-time">12:30 am</div>
                 
                 <div class="userPaathStatus-social">
                     <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
                 </div>
-                <div class="userPaathStatus-actions">
+                <div class="userPaathStatus-actions" ng-if="user._id === vm.loggedInUserId">
                     <button class="button button-small button-primary">Update</button>
                 </div>
             </div>
