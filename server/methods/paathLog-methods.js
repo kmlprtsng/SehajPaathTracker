@@ -15,7 +15,8 @@
       udpatePaathLog(paathId, paathLog)
     }
     else {
-      addPaathLog(paathId, paathLog);
+        paathLog.userId = this.userId;
+        addPaathLog(paathId, paathLog);
     }
   }
   

@@ -1,14 +1,16 @@
 angular.module('sehajPaathTracker')
 	.controller('PaathDetailsCtrl', PaathDetailsController);
 
-function PaathDetailsController($scope, $stateParams, $reactive) {
+function PaathDetailsController($scope, $stateParams, $reactive, $state) {
 	$reactive(this).attach($scope);
 	
 	var vm = this,
 		paathId = $stateParams.paathId;
         
     vm.subscribe("users");
+    
     vm.loggedInUserId = Meteor.userId();
+    vm.addLog = addLog;
     
 	vm.helpers({
 		paath() { 
@@ -29,5 +31,9 @@ function PaathDetailsController($scope, $stateParams, $reactive) {
         }
     });
     
+    //////////////////////
     
+    function addLog(){
+        $state.go("addPaathLog", {paathId: paathId});
+    }
 }
