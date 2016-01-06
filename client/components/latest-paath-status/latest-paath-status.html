@@ -1,0 +1,8 @@
+<span>
+    <span ng-if="vm.latestLog">
+        {{vm.user | name}} have just completed Angs {{vm.latestLog.startAng }} to {{vm.latestLog.finishAng }}
+    </span>
+    <span ng-if="!vm.latestLog">
+        {{vm.user | name}} has not yet picked up anything.
+    </span>
+</span>

@@ -28,7 +28,7 @@
     return Paaths.update(
         { _id: paathId, "logs._id": paathLog._id },
         { 
-          $set: { "logs.$": paathLog },
+          $set: { "logs.$": paathLog, updatedDate: new Date() },
           //$pull: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
           //$pushAll: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
         });
@@ -38,6 +38,8 @@
     var newId = new Mongo.ObjectID;
     
     paathLog._id = newId._str;
+    paathLog.createdDate = new Date();
+    paathLog.updatedDate = new Date();
     
     var trackingData = generateTrackingData(paathLog.startAng, paathLog.finishAng);
     

@@ -40,7 +40,7 @@
         <div class="userPaathStatus-list">
             <div class="userPaathStatus" ng-repeat="user in vm.users track by user._id">
                 <div class="userPaathStatus-name">{{user | name}}</div>
-                <div class="userPaathStatus-latest">You have assigned yourself Ang 10 to 15</div>
+                <div class="userPaathStatus-latest"><latest-paath-status user="user" paath-logs="vm.paath.logs"></latest-paath-status></div>
                 <div class="userPaathStatus-time">12:30 am</div>
                 
                 <div class="userPaathStatus-social">
