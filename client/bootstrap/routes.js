@@ -44,7 +44,7 @@ angular.module('sehajPaathTracker')
 				controller: 'PaathLogFormCtrl as vm',
 				authRequired: true,
 				resolve: {
-					paathLogStatues: function(){ return PaathLogStatuses; }
+					paathLogStatues: function(){ return PaathLogStatusesList; }
 				}
 			})
 			.state('editPaathLog', {
@@ -53,7 +53,7 @@ angular.module('sehajPaathTracker')
 				controller: 'PaathLogFormCtrl as vm',
 				authRequired: true,
 				resolve: {
-					paathLogStatues: function(){ return PaathLogStatuses; }
+					paathLogStatues: function(){ return PaathLogStatusesList; }
 				}
 			});
 
