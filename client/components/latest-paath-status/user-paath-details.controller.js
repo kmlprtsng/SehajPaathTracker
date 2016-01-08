@@ -3,9 +3,9 @@
     
     angular
         .module("sehajPaathTracker")
-        .controller("LatestPaathStatusCtrl", LatestPaathStatusController);
+        .controller("UserPaathDetailsCtrl", UserPaathDetailsCtrl);
 
-    function LatestPaathStatusController($scope, userPaathStatus, latestPaathLogFinder) {
+    function UserPaathDetailsCtrl($scope, userPaathStatus, latestPaathLogFinder) {
         var vm = this,
             latestLog = latestPaathLogFinder.find(vm.paathLogs, vm.user);
 

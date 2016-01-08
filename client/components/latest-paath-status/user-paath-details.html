@@ -1,0 +1,12 @@
+<div>
+    <div class="userPaathStatus-name">{{vm.user | name}}</div>
+    <div class="userPaathStatus-latest">{{vm.user | name}} {{ vm.latestLogText }}</div>
+    <div class="userPaathStatus-time">12:30 am</div>
+
+    <div class="userPaathStatus-social">
+        <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
+    </div>
+    <div class="userPaathStatus-actions" ng-if="user._id === vm.loggedInUserId">
+        <button class="button button-small button-primary" ng-click="vm.addLog()">Add</button>
+    </div>
+</div>

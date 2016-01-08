@@ -1,16 +1,16 @@
 angular
     .module("sehajPaathTracker")
-    .directive("latestPaathStatus", latestPaathStatusDirective);
+    .directive("userPaathDetails", latestPaathStatusDirective);
    
 function latestPaathStatusDirective(){
     return {
         scope: {},
-        controller: 'LatestPaathStatusCtrl',
+        controller: 'UserPaathDetailsCtrl',
         controllerAs: 'vm',
         bindToController: {
             user: '=',
             paathLogs: "="
         },
-        templateUrl: 'client/components/latest-paath-status/latest-paath-status.html'
+        templateUrl: 'client/components/latest-paath-status/user-paath-details.html'
     };
 }
