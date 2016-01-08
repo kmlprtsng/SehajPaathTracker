@@ -1,67 +1,74 @@
 (function () {
-  Meteor.methods({
-    deletePaathLog: deletePaathLog,
-    savePaathLog: savePaathLog
-  });
+    Meteor.methods({
+        deletePaathLog: deletePaathLog,
+        savePaathLog: savePaathLog
+    });
 
-  function deletePaathLog(paathId, paathLogId) {
-    Paaths.update(
-      { _id: paathId },
-      { $pull: { logs: { _id: paathLogId } } });
-  }
+    function deletePaathLog(paathId, paathLogId) {
+        Paaths.update(
+            { _id: paathId },
+            { $pull: { logs: { _id: paathLogId } } });
+    }
 
-  function savePaathLog(paathId, paathLog) {
-    if (paathLog._id) {
-      udpatePaathLog(paathId, paathLog)
+    function savePaathLog(paathId, paathLog) {
+
+        paathLog.updatedDate = new Date();
+
+        if (paathLog._id) {
+            udpatePaathLog(paathId, paathLog)
+        }
+        else {
+            paathLog.userId = this.userId;
+            paathLog.createdDate = new Date();
+            addPaathLog(paathId, paathLog);
+        }
     }
-    else {
-        paathLog.userId = this.userId;
-        addPaathLog(paathId, paathLog);
+
+    function udpatePaathLog(paathId, paathLog) {
+        //get previous start and finish angs and add and remove angs as necessary.
+        //also remove all the old angs and add the new ones.
+        // var oldPaathLog = Paaths.findOne({_id: paathId, "logs._id": paathLog._id}, {});
+
+        //$pull: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
+        //$pushAll: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
+        return Paaths.update(
+            { _id: paathId, "logs._id": paathLog._id },
+            { $set: { 
+                    "logs.$.startAng": paathLog.startAng,
+                    "logs.$.finishAng": paathLog.finishAng,
+                    "logs.$.nextPankti": paathLog.nextPankti,
+                    "logs.$.status": paathLog.status,
+                    "logs.$.updatedDate": paathLog.updatedDate
+                } 
+            });
     }
-  }
-  
-  function udpatePaathLog(paathId, paathLog){
-    //get previous start and finish angs and add and remove angs as necessary.
-    //also remove all the old angs and add the new ones.
-    var oldPaathLog = Paaths.findOne({_id: paathId, "logs._id": paathLog._id}, {});
-    
-    return Paaths.update(
-        { _id: paathId, "logs._id": paathLog._id },
-        { 
-          $set: { "logs.$": paathLog, updatedDate: new Date() },
-          //$pull: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
-          //$pushAll: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
-        });
-  }
-  
-  function addPaathLog(paathId, paathLog){
-    var newId = new Mongo.ObjectID;
-    
-    paathLog._id = newId._str;
-    paathLog.createdDate = new Date();
-    paathLog.updatedDate = new Date();
-    
-    var trackingData = generateTrackingData(paathLog.startAng, paathLog.finishAng);
-    
-    return Paaths.update(paathId, 
-      { 
-        $pushAll: { "tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
-        $push: { logs: paathLog }
-      }
-    );
-  }
-  
-  function generateTrackingData(newStartAng, newEndAng){
-     if(!newEndAng){
-       return [newStartAng];
-     }
-     
-     var trackingData = [];
-     
-     for(var i = newStartAng; i <= newEndAng; i++){
-       trackingData.push(i);
-     }
-     
-     return trackingData;
-  }
+
+    function addPaathLog(paathId, paathLog) {
+        var newId = new Mongo.ObjectID;
+
+        paathLog._id = newId._str;
+
+        var trackingData = generateTrackingData(paathLog.startAng, paathLog.finishAng);
+
+        return Paaths.update(paathId,
+            {
+                $pushAll: { "tracking.angsDone": generateTrackingData(paathLog.startAng, paathLog.finishAng) },
+                $push: { logs: paathLog }
+            }
+            );
+    }
+
+    function generateTrackingData(newStartAng, newEndAng) {
+        if (!newEndAng) {
+            return [newStartAng];
+        }
+
+        var trackingData = [];
+
+        for (var i = newStartAng; i <= newEndAng; i++) {
+            trackingData.push(i);
+        }
+
+        return trackingData;
+    }
 })();
