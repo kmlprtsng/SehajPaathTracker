@@ -8,7 +8,9 @@
     userPaathStatusService.$inject = ['stringHelper'];
 
     function userPaathStatusService(stringHelper) {
-        this.getLogStatusText = getLogStatusText;
+        var service = this;
+        
+        service.getLogStatusText = getLogStatusText;
         
         ////////////////
         function getLogStatusText(user, latestLog) {
