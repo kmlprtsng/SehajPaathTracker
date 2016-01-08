@@ -9,7 +9,7 @@ function latestPaathStatusDirective(){
         controllerAs: 'vm',
         bindToController: {
             user: '=',
-            paathLogs: "="
+            paath: "="
         },
         templateUrl: 'client/components/latest-paath-status/user-paath-details.html'
     };

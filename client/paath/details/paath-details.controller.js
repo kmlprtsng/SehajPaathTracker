@@ -9,9 +9,6 @@ function PaathDetailsController($scope, $stateParams, $reactive, $state) {
         
     vm.subscribe("users");
     
-    vm.loggedInUserId = Meteor.userId();
-    vm.addLog = addLog;
-    
 	vm.helpers({
 		paath() { 
 			return Paaths.findOne(paathId); 
@@ -32,8 +29,4 @@ function PaathDetailsController($scope, $stateParams, $reactive, $state) {
     });
     
     //////////////////////
-    
-    function addLog(){
-        $state.go("addPaathLog", {paathId: paathId});
-    }
 }
