@@ -1,7 +1,7 @@
 <div>
     <div class="userPaathStatus-name">{{vm.user | name}}</div>
     <div class="userPaathStatus-latest">{{vm.user | name}} {{ vm.latestLogText }}</div>
-    <div class="userPaathStatus-time">12:30 am</div>
+    <div class="userPaathStatus-time">{{vm.latestLog.updatedDate | calendar}}</div>
 
     <div class="userPaathStatus-social">
         <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>

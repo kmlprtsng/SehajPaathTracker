@@ -6,8 +6,9 @@
         .controller("UserPaathDetailsCtrl", UserPaathDetailsCtrl);
 
     function UserPaathDetailsCtrl($scope, userPaathStatus, latestPaathLogFinder, $state) {
-        var vm = this,
-            latestLog = latestPaathLogFinder.find(vm.paath.logs, vm.user);
+        var vm = this;
+        
+        vm.latestLog = latestPaathLogFinder.find(vm.paath.logs, vm.user);
 
         vm.loggedInUserId = Meteor.userId();
         
@@ -17,14 +18,14 @@
         vm.addLog = addLog;
         vm.updateLog = updateLog;
 
-        $scope.$watch("latestLog", getUserPaathStatusText);
+        $scope.$watch("vm.latestLog", getUserPaathStatusText);
         
         //////////////
         function getUserPaathStatusText() {
-            vm.latestLogText = userPaathStatus.getLogStatusText(vm.user, latestLog);
-            vm.showAddButton = !latestLog 
+            vm.latestLogText = userPaathStatus.getLogStatusText(vm.user, vm.latestLog);
+            vm.showAddButton = !vm.latestLog 
                                     ? true 
-                                    : latestLog.status === PaathLogStatuses.done.title;
+                                    : vm.latestLog.status === PaathLogStatuses.done.title;
             vm.showUpdateButton = !vm.showAddButton;
         }
 
@@ -33,7 +34,7 @@
         }
 
         function updateLog() {
-            $state.go("editPaathLog", { paathId: vm.paath._id, paathLogId: latestLog._id });
+            $state.go("editPaathLog", { paathId: vm.paath._id, paathLogId: vm.latestLog._id });
         }
     }
 })();
