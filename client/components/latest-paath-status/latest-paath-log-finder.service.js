@@ -19,7 +19,7 @@
                 return null;
             }
 
-            foundLatestLog = findInProgressLatestLog(userLogs);
+            foundLatestLog = findEarliestOngoingLog(userLogs);
 
             if (!foundLatestLog) {
                 foundLatestLog = findLastUpdatedLog(userLogs);
@@ -29,9 +29,9 @@
         }
 
         //////////////////// PRIVATE METHODS
-        function findInProgressLatestLog(userLogs) {
+        function findEarliestOngoingLog(userLogs) {
             return _.find(userLogs, function (log) {
-                return log.status === PaathLogStatuses.inProgress;
+                return log.status !== PaathLogStatuses.done.title;
             });
         }
 
