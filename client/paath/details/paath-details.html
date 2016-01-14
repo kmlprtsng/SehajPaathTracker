@@ -38,34 +38,9 @@
             </div>
          </div>
         <div class="userPaathStatus-list">
-            <div class="userPaathStatus">
-                <div class="userPaathStatus-name">Kamalpreet Singh</div>
-                <div class="userPaathStatus-latest">You have assigned yourself Ang 10 to 15</div>
-                <div class="userPaathStatus-time">12:30 am</div>
-                
-                <div class="userPaathStatus-social">
-                    <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
-                </div>
-                <div class="userPaathStatus-actions">
-                    <button class="button button-small button-primary">Update</button>
-                </div>
+            <div class="userPaathStatus" ng-repeat="user in vm.users track by user._id">
+                <user-paath-details user="user" paath="vm.paath"></user-paath-details>
             </div>
-            <!--<div class="userPaathStatus">
-                <div class="userPaathStatus-name">Jasvinder Kaur</div>
-                <div class="userPaathStatus-latest">Jasvinder Kaur will be doing Ang 16 to 20</div>
-                <div class="userPaathStatus-time">Yesterday</div>
-                <div class="userPaathStatus-social">
-                    <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
-                </div>
-            </div>
-            <div class="userPaathStatus">
-                <div class="userPaathStatus-name">Satpaul Singh</div>
-                <div class="userPaathStatus-latest">Satpaul Singh has finished Ang 9 to 10.</div>
-                <div class="userPaathStatus-time">2 days ago</div>
-                <div class="userPaathStatus-social">
-                    <button class="button button-clear button-primary icon-left ion-thumbsup">Guru bhala kare</button>
-                </div>
-            </div>-->
         </div>
         <div class="center">
             <a href="#/paaths/{{vm.paath._id}}/history-logs" class="button button-clear">View all history</a>
