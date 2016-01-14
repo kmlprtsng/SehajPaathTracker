@@ -11,10 +11,20 @@
     }
 
     function savePaathLog(paathId, paathLog) {
-
+        Meteor.call("validateUser");
+        
         paathLog.updatedDate = new Date();
 
         if (paathLog._id) {
+            var paathFromDb = Paaths.findOne({_id: paathId });
+
+            var paathLogFromDb = _.findWhere(paathFromDb.logs, {_id : paathLog._id }); 
+            
+            if(paathLogFromDb.userId !== this.userId){
+                throw new Meteor.Error('not-authorised',
+                    "Cannot update another user's log " + paathLog.userId);
+            }
+            
             udpatePaathLog(paathId, paathLog)
         }
         else {
