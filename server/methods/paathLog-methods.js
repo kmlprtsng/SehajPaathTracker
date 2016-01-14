@@ -13,10 +13,10 @@
     function savePaathLog(paathId, paathLog) {
         Meteor.call("validateUser");
         
-        let paathFromDb = Paaths.findOne({_id: paathId });        
         paathLog.updatedDate = new Date();
 
         if (paathLog._id) {
+            let paathFromDb = Paaths.findOne({_id: paathId });
             var paathLogFromDb = _.findWhere(paathFromDb.logs, {_id : paathLog._id }); 
             
             if(paathLogFromDb.userId !== this.userId){
@@ -26,12 +26,7 @@
             
             udpatePaathLog(paathId, paathLog)
         }
-        else {
-            if(doesUserHasOngoingPaath(paathFromDb.logs, this.userId)){
-                throw new Meteor.Error('already-ongoing-paath',
-                    "User already has ongoing paath");
-            }
-            
+        else {            
             paathLog.userId = this.userId;
             paathLog.createdDate = new Date();
             addPaathLog(paathId, paathLog);
@@ -72,16 +67,7 @@
             );
     }
 
-    //////////////// HELPERS
-    function doesUserHasOngoingPaath(paathLogs, loggedInUserId){
-        var userLogs = _.where(paathLogs, {userId: loggedInUserId});
-        var ongoingLog = _.find(userLogs, function(log){
-            return log.status !== PaathLogStatuses.done.title;  
-        });
-        
-        return !!ongoingLog;
-    }
-    
+    //////////////// HELPERS    
     function generateTrackingData(newStartAng, newEndAng) {
         if (!newEndAng) {
             return [newStartAng];
