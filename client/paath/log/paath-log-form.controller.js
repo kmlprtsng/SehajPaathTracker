@@ -54,6 +54,11 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
                 if(error.error === "not-authorised"){
                     notifications.notify("Not Authorised", "Sorry Khalsa Ji but you are not allowed to edit other people's log");
                 }
+                
+                if(error.error === "already-ongoing-paath"){
+                    notifications.notify("Already Paath Log in progress", 
+                    "Sorry Khalsa Ji but you cannot enter new paath until you have finish your existing ongoing paath");
+                }
             });			
 		}
 	}
