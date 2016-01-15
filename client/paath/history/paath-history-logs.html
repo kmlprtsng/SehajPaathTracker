@@ -2,8 +2,8 @@
     <ion-content padding="false" class="has-header">
         <ion-list>
             <ion-item 
-                ng-repeat="log in vm.paath.logs"
-                href="#/paaths/{{vm.paath._id}}/paath-log/{{log._id}}"
+                ng-repeat="log in vm.paathLogs"
+                href="#/paaths/{{log.paathId}}/paath-log/{{log._id}}"
                 class="item-icon-right">
                 {{log.startAng}} - {{log.finishAng}} ({{log.status}})
                 <i class="icon ion-chevron-right icon-accessory"></i>
