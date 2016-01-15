@@ -6,9 +6,10 @@
         .controller("UserPaathDetailsCtrl", UserPaathDetailsCtrl);
 
     function UserPaathDetailsCtrl($scope, userPaathStatus, latestPaathLogFinder, $state, $ionicPopup) {
-        var vm = this;
+        var vm = this,
+            paathLogs = PaathLogs.find({paathId: vm.paath._id}).fetch();
 
-        vm.latestLog = latestPaathLogFinder.find(vm.paath.logs, vm.user);
+        vm.latestLog = latestPaathLogFinder.find(paathLogs, vm.user);
 
         vm.loggedInUserId = Meteor.userId();
 
