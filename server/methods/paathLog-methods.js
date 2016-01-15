@@ -9,20 +9,23 @@
         return PaathLogs.remove({_id: paathLogId});
     }
 
-    function savePaathLog(paathLog) {
+    function savePaathLog(paathLogId, paathLog) {
         Meteor.call("validateUser");
+        
+        //TODO-KC validate paathLog paathId on payload matches the paath Id in db.
         
         paathLog.updatedDate = new Date();
 
-        if (paathLog._id) {
-            var paathLogFromDb = PaathLogs.findOne({_id: paathLog._id });
+        if (paathLogId) {
+            var paathLogFromDb = PaathLogs.findOne(paathLogId);
+            
             
             if(paathLogFromDb.userId !== this.userId){
                 throw new Meteor.Error('not-authorised',
-                    "Cannot update another user's log " + paathLog.userId);
+                    "Cannot update another user's log ");
             }
             
-            udpatePaathLog(paathLog)
+            udpatePaathLog(paathLogId, paathLog)
         }
         else {            
             paathLog.userId = this.userId;
@@ -31,9 +34,9 @@
         }
     }
 
-    function udpatePaathLog(paathLog) {
+    function udpatePaathLog(paathLogId, paathLog) {
         return PaathLogs.update(
-            { _id: paathLog._id },
+            { _id: paathLogId },
             { $set: { 
                     startAng: paathLog.startAng,
                     finishAng: paathLog.finishAng,
