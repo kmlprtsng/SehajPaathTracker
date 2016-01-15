@@ -4,81 +4,43 @@
         savePaathLog: savePaathLog
     });
 
-    function deletePaathLog(paathId, paathLogId) {
-        Paaths.update(
-            { _id: paathId },
-            { $pull: { logs: { _id: paathLogId } } });
+    function deletePaathLog(paathLogId) {
+        Meteor.call("validateUser");
+        return PaathLogs.remove({_id: paathLogId});
     }
 
-    function savePaathLog(paathId, paathLog) {
+    function savePaathLog(paathLog) {
         Meteor.call("validateUser");
         
         paathLog.updatedDate = new Date();
 
         if (paathLog._id) {
-            let paathFromDb = Paaths.findOne({_id: paathId });
-            var paathLogFromDb = _.findWhere(paathFromDb.logs, {_id : paathLog._id }); 
+            var paathLogFromDb = PaathLogs.findOne({_id: paathLog._id });
             
             if(paathLogFromDb.userId !== this.userId){
                 throw new Meteor.Error('not-authorised',
                     "Cannot update another user's log " + paathLog.userId);
             }
             
-            udpatePaathLog(paathId, paathLog)
+            udpatePaathLog(paathLog)
         }
         else {            
             paathLog.userId = this.userId;
             paathLog.createdDate = new Date();
-            addPaathLog(paathId, paathLog);
+            PaathLogs.insert(paathLog);
         }
     }
 
-    function udpatePaathLog(paathId, paathLog) {
-        //get previous start and finish angs and add and remove angs as necessary.
-        //also remove all the old angs and add the new ones.
-        // var oldPaathLog = Paaths.findOne({_id: paathId, "logs._id": paathLog._id}, {});
-
-        //$pull: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
-        //$pushAll: {"tracking.angsDone" : generateTrackingData(paathLog.startAng, paathLog.finishAng)},
-        return Paaths.update(
-            { _id: paathId, "logs._id": paathLog._id },
+    function udpatePaathLog(paathLog) {
+        return PaathLogs.update(
+            { _id: paathLog._id },
             { $set: { 
-                    "logs.$.startAng": paathLog.startAng,
-                    "logs.$.finishAng": paathLog.finishAng,
-                    "logs.$.nextPankti": paathLog.nextPankti,
-                    "logs.$.status": paathLog.status,
-                    "logs.$.updatedDate": paathLog.updatedDate
+                    startAng: paathLog.startAng,
+                    finishAng: paathLog.finishAng,
+                    nextPankti: paathLog.nextPankti,
+                    status: paathLog.status,
+                    updatedDate: paathLog.updatedDate
                 } 
             });
-    }
-
-    function addPaathLog(paathId, paathLog) {
-        var newId = new Mongo.ObjectID;
-
-        paathLog._id = newId._str;
-
-        var trackingData = generateTrackingData(paathLog.startAng, paathLog.finishAng);
-
-        return Paaths.update(paathId,
-            {
-                $pushAll: { "tracking.angsDone": generateTrackingData(paathLog.startAng, paathLog.finishAng) },
-                $push: { logs: paathLog }
-            }
-            );
-    }
-
-    //////////////// HELPERS    
-    function generateTrackingData(newStartAng, newEndAng) {
-        if (!newEndAng) {
-            return [newStartAng];
-        }
-
-        var trackingData = [];
-
-        for (var i = newStartAng; i <= newEndAng; i++) {
-            trackingData.push(i);
-        }
-
-        return trackingData;
     }
 })();
