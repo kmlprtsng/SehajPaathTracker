@@ -5,11 +5,19 @@
         .module("sehajPaathTracker")
         .controller("UserPaathDetailsCtrl", UserPaathDetailsCtrl);
 
-    function UserPaathDetailsCtrl($scope, userPaathStatus, latestPaathLogFinder, $state, $ionicPopup) {
+    function UserPaathDetailsCtrl($scope, latestPaathLogFinder, $state, $ionicPopup, $reactive) {
+        $reactive(this).attach($scope);
+        
         var vm = this,
             paathLogs = PaathLogs.find({paathId: vm.paath._id}).fetch();
 
-        vm.latestLog = latestPaathLogFinder.find(paathLogs, vm.user);
+        //vm.latestLog = latestPaathLogFinder.find(paathLogs, vm.user);
+
+        vm.helpers({
+            latestLog() {
+                return PaathLogs.findOne();
+            }
+        });
 
         vm.loggedInUserId = Meteor.userId();
 
@@ -24,7 +32,6 @@
         
         //////////////
         function getUserPaathStatusText() {
-            vm.latestLogText = userPaathStatus.getLogStatusText(vm.user, vm.latestLog);
             vm.showAddButton = !vm.latestLog
                 ? true
                 : vm.latestLog.status === PaathLogStatuses.done.title;
