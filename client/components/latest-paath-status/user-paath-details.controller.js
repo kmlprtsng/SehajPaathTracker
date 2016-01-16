@@ -5,29 +5,44 @@
         .module("sehajPaathTracker")
         .controller("UserPaathDetailsCtrl", UserPaathDetailsCtrl);
 
-    function UserPaathDetailsCtrl($scope, userPaathStatus, latestPaathLogFinder, $state, $ionicPopup) {
+    function UserPaathDetailsCtrl($scope, $state, $ionicPopup, $reactive) {
+        $reactive(this).attach($scope);
+        
         var vm = this;
 
-        vm.latestLog = latestPaathLogFinder.find(vm.paath.logs, vm.user);
+        vm.helpers({
+            latestLog() {
+                var items = PaathLogs
+                                .find({userId: vm.user._id, status: { $ne: PaathLogStatuses.done.title } }, 
+                                        {sort: {updatedDate: -1}},
+                                        {limit: 1})
+                                .fetch();
+                
+                if(items.length === 0){
+                    items =  PaathLogs
+                                .find({userId: vm.user._id }, 
+                                        {sort: {updatedDate: -1}},
+                                        {limit: 1})
+                                .fetch();
+                }
+                
+                return items[0];
+            }
+        });
 
         vm.loggedInUserId = Meteor.userId();
 
-        vm.showAddButton = false;
-        vm.showUpdateButton = false;
+        vm.showAddButton = showAddButton;
 
         vm.addLog = addLog;
         vm.like = like;
         vm.updateLog = updateLog;
-
-        $scope.$watch("vm.latestLog", getUserPaathStatusText);
         
         //////////////
-        function getUserPaathStatusText() {
-            vm.latestLogText = userPaathStatus.getLogStatusText(vm.user, vm.latestLog);
-            vm.showAddButton = !vm.latestLog
+        function showAddButton() {
+            return !vm.latestLog
                 ? true
                 : vm.latestLog.status === PaathLogStatuses.done.title;
-            vm.showUpdateButton = !vm.showAddButton;
         }
 
         function addLog() {

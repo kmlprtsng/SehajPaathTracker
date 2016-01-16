@@ -18,14 +18,13 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	////////////
 		
 	function deletePaathLog() {
-		Meteor.call('deletePaathLog', paathId, paathLogId)
+		Meteor.call('deletePaathLog', paathLogId)
 		$ionicHistory.goBack();
 	}
 
 	function init() {
 		if (paathLogId) {
-			var paath = Paaths.findOne(paathId),
-				paathLog = _.first(_.where(paath.logs, { _id: paathLogId }));
+			var paathLog = PaathLogs.findOne(paathLogId);
 
 			vm.data.startAng = paathLog.startAng;
 			vm.data.finishAng = paathLog.finishAng;
@@ -37,14 +36,14 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	function updatePaathLog(isValid) {
 		if (isValid) {
 			var paathLog = {
-				_id: paathLogId,
 				startAng: vm.data.startAng,
 				finishAng: vm.data.finishAng,
 				nextPankti: vm.data.nextPankti,
-				status: vm.data.selectedStatus.title
+				status: vm.data.selectedStatus.title,
+				paathId: paathId
 			};
 
-			Meteor.call('savePaathLog', paathId, paathLog, function(error, result){
+			Meteor.call('savePaathLog', paathLogId, paathLog, function(error, result){
                 
                 if(!error){
                     $ionicHistory.goBack();

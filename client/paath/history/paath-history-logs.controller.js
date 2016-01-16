@@ -8,8 +8,8 @@ function PaathHistoryLogsController($scope, $stateParams, $reactive) {
 		paathId = $stateParams.paathId;
 
 	vm.helpers({
-		paath() { 
-			return Paaths.findOne(paathId); 
+		paathLogs() { 
+			return PaathLogs.find({paathId: paathId}); 
 		} 
 	});
 }

@@ -1,6 +1,6 @@
 <div>
     <div class="userPaathStatus-name">{{vm.user | name}}</div>
-    <div class="userPaathStatus-latest">{{vm.user | name}} {{ vm.latestLogText }}</div>
+    <div class="userPaathStatus-latest">{{vm.user | name}} {{vm.latestLog | userLogString:vm.user}}</div>
     <div class="userPaathStatus-time">
         <span am-time-ago="vm.latestLog.updatedDate"></span>
     </div>
@@ -9,7 +9,7 @@
         <button class="button button-clear button-primary icon-left ion-thumbsup" ng-click="vm.like()">Guru bhala kare</button>
     </div>
     <div class="userPaathStatus-actions" ng-if="vm.user._id === vm.loggedInUserId">
-        <button class="button button-small button-primary" ng-click="vm.addLog()" ng-show="vm.showAddButton">Add</button>
-        <button class="button button-small button-primary" ng-click="vm.updateLog()" ng-show="vm.showUpdateButton">Update</button>
+        <button class="button button-small button-primary" ng-click="vm.addLog()" ng-show="vm.showAddButton()">Add</button>
+        <button class="button button-small button-primary" ng-click="vm.updateLog()" ng-show="!vm.showAddButton()">Update</button>
     </div>
 </div>
