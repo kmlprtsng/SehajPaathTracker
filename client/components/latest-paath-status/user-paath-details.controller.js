@@ -13,14 +13,14 @@
         vm.helpers({
             latestLog() {
                 var items = PaathLogs
-                                .find({userId: vm.user._id, status: { $ne: PaathLogStatuses.done.title } }, 
+                                .find({userId: vm.user._id, status: { $ne: PaathLogStatuses.done.title }, paathId: vm.paath._id }, 
                                         {sort: {updatedDate: -1}},
                                         {limit: 1})
                                 .fetch();
                 
                 if(items.length === 0){
                     items =  PaathLogs
-                                .find({userId: vm.user._id }, 
+                                .find({userId: vm.user._id, paathId: vm.paath._id }, 
                                         {sort: {updatedDate: -1}},
                                         {limit: 1})
                                 .fetch();
