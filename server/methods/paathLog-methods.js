@@ -30,8 +30,36 @@
         else {            
             paathLog.userId = this.userId;
             paathLog.createdDate = new Date();
-            PaathLogs.insert(paathLog);
+            
+            addPaathLog(paathLog);
         }
+    }
+    
+    function addPaathLog(paathLog){
+        PaathLogs.insert(paathLog, function (err, paathLogId) {
+            
+            // PaathTracking.update(
+            //     {
+            //         ang: {$in:  [1,2,3,4]},
+            //         paathId: paathLogId
+            //     },
+            //     {
+            //         $inc: { inProgress: 0, done: 0 }
+            //     },
+            //     { upsert: true, multi: true }
+            //     );
+        });
+         
+         /*do an upsert
+         {
+             ang: 1,
+             inProgress: 0,
+             done: 0,
+             paathId
+         }
+         
+         */
+         
     }
 
     function udpatePaathLog(paathLogId, paathLog) {
