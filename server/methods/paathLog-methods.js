@@ -59,14 +59,10 @@
                     { upsert: true }
                 );
             }
-
         });
-            
-         
-         
     }
 
-    function udpatePaathLog(paathLogId, paathLog) {
+    function udpatePaathLog(paathLogId, paathLog, previousPaathLogFromDb) {
         return PaathLogs.update(
             { _id: paathLogId },
             { $set: { 
@@ -76,6 +72,29 @@
                     status: paathLog.status,
                     updatedDate: paathLog.updatedDate
                 } 
+            }, function(){
+                
+                var logInProgress = paathLog.status !== PaathLogStatuses.done.title,
+                    addToSetCommand;
+                    
+                if (logInProgress) {
+                    addToSetCommand = { inProgress: paathLogId };
+                }
+                else {
+                    addToSetCommand = { done: paathLogId };
+                }
+
+                //next: work on adding the paathLogId to set
+                PaathTracking.update(
+                    {
+                        $or: [ {done: { $in: [paathLogId] } }, {inProgress: { $in: [paathLogId] } }]
+                    },
+                    {
+                        $pull: { done: paathLogId }
+                        //$addToSet: addToSetCommand
+                    },
+                    { multi: true }
+                );
             });
     }
 })();
