@@ -38,6 +38,7 @@
     function addPaathLog(paathLog){
         PaathLogs.insert(paathLog, function (err, paathLogId) {
             addTrackingForPaathLog(paathLog, paathLogId);
+            updatePaathStats();
         });
     }
 
@@ -54,6 +55,7 @@
             }, function(){
                 removeTrackingForPaathLog(paathLogId);
                 addTrackingForPaathLog(paathLog, paathLogId);
+                updatePaathStats();
             });
     }
     
@@ -92,5 +94,28 @@
                 { upsert: true }
                 );
         }
+    }
+    
+    function updatePaathStats(paathId){
+        var totalAngsdone = PaathTracking.count({paathId: paathId, 'done.0': {$exists: true}});
+        var totalAngsInProgress = PaathTracking.count({paathId: paathId, 'inProgress.0': {$exists: true}});
+        
+        var latestAng = PaathTracking
+                            .find({paathId: page, $or: [{ 'inProgress.0': {$exists: true}}, { 'done.0': {$exists: true}}]})
+                            .sort({ang: -1})
+                            .limit(1)
+                            .fetch();
+        
+        var nextAvailableAng = 1;
+        
+        if(latestAng.length > 0){
+            nextAvailableAng = latestAng[0].ang + 1;
+        }
+        
+        // - Missing Angs
+        //To be quereied
+        //Probably need to think about it bit more as some tracking pages may be missing.
+        //var missingAngs = {paathId: page, $or: [{ 'inProgress': {$exists: false}}, { 'done': {$exists: true}}]};
+        
     }
 })();
