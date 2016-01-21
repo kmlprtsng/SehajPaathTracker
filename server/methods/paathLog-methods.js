@@ -37,28 +37,7 @@
     
     function addPaathLog(paathLog){
         PaathLogs.insert(paathLog, function (err, paathLogId) {
-            var logInProgress = paathLog.status !== PaathLogStatuses.done.title,
-                addToSetCommand;
-
-            if (logInProgress) {
-                addToSetCommand = { inProgress: paathLogId };
-            }
-            else{
-                addToSetCommand = { done: paathLogId };
-            }
-
-            for (var i = paathLog.startAng; i <= paathLog.finishAng; i++) {
-                PaathTracking.update(
-                    {
-                        ang: i,
-                        paathId: paathLog.paathId
-                    },
-                    {
-                        $addToSet: addToSetCommand
-                    },
-                    { upsert: true }
-                );
-            }
+            addTrackingForPaathLog(paathLog, paathLogId);
         });
     }
 
@@ -73,28 +52,45 @@
                     updatedDate: paathLog.updatedDate
                 } 
             }, function(){
-                
-                var logInProgress = paathLog.status !== PaathLogStatuses.done.title,
-                    addToSetCommand;
-                    
-                if (logInProgress) {
-                    addToSetCommand = { inProgress: paathLogId };
-                }
-                else {
-                    addToSetCommand = { done: paathLogId };
-                }
-
-                //next: work on adding the paathLogId to set
-                PaathTracking.update(
-                    {
-                        $or: [ {done: { $in: [paathLogId] } }, {inProgress: { $in: [paathLogId] } }]
-                    },
-                    {
-                        $pull: { done: paathLogId }
-                        //$addToSet: addToSetCommand
-                    },
-                    { multi: true }
-                );
+                removeTrackingForPaathLog(paathLogId);
+                addTrackingForPaathLog(paathLog, paathLogId);
             });
+    }
+    
+    function removeTrackingForPaathLog(paathLogId) {
+        PaathTracking.update(
+            {
+                $or: [{ done: { $in: [paathLogId] } }, { inProgress: { $in: [paathLogId] } }]
+            },
+            {
+                $pull: { done: paathLogId, inProgress: paathLogId }
+            },
+            { multi: true }
+            );
+    }
+    
+    function addTrackingForPaathLog(paathLog, paathLogId) {
+        var logInProgress = paathLog.status !== PaathLogStatuses.done.title,
+            addToSetCommand;
+
+        if (logInProgress) {
+            addToSetCommand = { inProgress: paathLogId };
+        }
+        else {
+            addToSetCommand = { done: paathLogId };
+        }
+
+        for (var i = paathLog.startAng; i <= paathLog.finishAng; i++) {
+            PaathTracking.update(
+                {
+                    ang: i,
+                    paathId: paathLog.paathId
+                },
+                {
+                    $addToSet: addToSetCommand
+                },
+                { upsert: true }
+                );
+        }
     }
 })();
