@@ -113,14 +113,6 @@
             nextAvailableAng = latestAng[0].ang + 1;
         }
         
-        // - Missing Angs
-        //To be quereied
-        //Probably need to think about it bit more as some tracking pages may be missing.
-        //var missingAngs = {paathId: paathId, $or: [{ 'inProgress': {$exists: false}}, { 'done': {$exists: true}}]};
-        
-        //psuedo code
-        //find all the angs up until the latest ang.
-        //find any angs that either don't exist at all or the ones that have in progress or done list size of zero 
         var missingAngs = PaathTracking
                                .find( { paathId: paathId,
                                         $or: [  {'inProgress':{ $exists:false } },
