@@ -6,6 +6,7 @@
 
     function deletePaathLog(paathLogId) {
         Meteor.call("validateUser");
+        //TODO-KC: Delete the tracking data
         return PaathLogs.remove({_id: paathLogId});
     }
 
@@ -101,7 +102,7 @@
         var totalAngsInProgress = PaathTracking.count({paathId: paathId, 'inProgress.0': {$exists: true}});
         
         var latestAng = PaathTracking
-                            .find({paathId: page, $or: [{ 'inProgress.0': {$exists: true}}, { 'done.0': {$exists: true}}]})
+                            .find({paathId: paathId, $or: [{ 'inProgress.0': {$exists: true}}, { 'done.0': {$exists: true}}]})
                             .sort({ang: -1})
                             .limit(1)
                             .fetch();
@@ -115,7 +116,25 @@
         // - Missing Angs
         //To be quereied
         //Probably need to think about it bit more as some tracking pages may be missing.
-        //var missingAngs = {paathId: page, $or: [{ 'inProgress': {$exists: false}}, { 'done': {$exists: true}}]};
+        //var missingAngs = {paathId: paathId, $or: [{ 'inProgress': {$exists: false}}, { 'done': {$exists: true}}]};
+        
+        //psuedo code
+        //find all the angs up until the latest ang.
+        //find any angs that either don't exist at all or the ones that have in progress or done list size of zero 
+        var missingAngs = PaathTracking
+                               .find( { paathId: paathId,
+                                        $or: [  {'inProgress':{ $exists:false } },
+    		                                    {'inProgress.0':{ $exists:false }}
+    	                                     ],
+                                        $or: [ {'done':{ $exists:false }},
+    		                                   {'done.0': { $exists:false }}
+    	                                     ]
+                                        },
+                                        ang: { $lt: nextAvailableAng }
+                                      { ang: 1, _id: 0});
+                               
+                               
+                            
         
     }
 })();
