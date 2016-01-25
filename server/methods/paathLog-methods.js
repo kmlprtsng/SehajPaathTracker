@@ -111,15 +111,16 @@
                                 : latestAng[0].ang + 1;
         
         var missingAngs = PaathTracking
-                               .find({ paathId: paathId,
-                                        $or: [  { 'inProgress' : { $exists: false } },
-    		                                    { 'inProgress.0' : { $exists: false } }
-    	                                     ],
-                                        $or: [ { 'done' : { $exists : false } },
-    		                                   { 'done.0' : { $exists : false } }
-    	                                     ],
-                                        ang: { $lt: nextAvailableAng },
-                                        ang: 1, _id: 0})
+                                .find({ paathId: paathId,
+                                            $or: [  { 'inProgress' : { $exists: false } },
+                                                    { 'inProgress.0' : { $exists: false } }
+                                                ],
+                                            $or: [ { 'done' : { $exists : false } },
+                                                { 'done.0' : { $exists : false } }
+                                                ],
+                                            ang: { $lt: nextAvailableAng }
+                                        },
+                                        { fields: { ang: 1, _id: 0 } })
                                 .fetch();
 
         Paaths.update({ _id: paathId },
@@ -127,7 +128,7 @@
                         nextAvailableAng : nextAvailableAng,
                         totalAngsDone : totalAngsDone,
                         totalAngsInProgress : totalAngsInProgress,
-                        missingAngs : missingAngs //TODO: Not finding the missing angs.
+                        missingAngs : missingAngs
                     } 
                 });
         
