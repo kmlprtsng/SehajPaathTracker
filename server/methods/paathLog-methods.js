@@ -123,6 +123,10 @@
                                         { fields: { ang: 1, _id: 0 } })
                                 .fetch();
 
+        missingAngs = _.map(missingAngs, function (missingAng) {
+            return missingAng.ang;
+        });
+        
         Paaths.update({ _id: paathId },
                 { $set: { 
                         nextAvailableAng : nextAvailableAng,
