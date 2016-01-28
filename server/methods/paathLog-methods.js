@@ -6,11 +6,21 @@
 
     function deletePaathLog(paathLogId) {
         Meteor.call("validateUser");
-        //TODO-KC: Delete the tracking data
-        return PaathLogs.remove({_id: paathLogId}, function(){
-            removeTrackingForPaathLog(paathLogId);
-            //updatePaathStats(paathLog.paathId); TODO-KC
-        });
+        
+        var paathLogFromDb = PaathLogs.findOne(paathLogId);
+        
+        if(paathLogFromDb){
+            var paathId = paathLogFromDb.paathId;
+            
+            return PaathLogs.remove({ _id: paathLogId }, function(){
+                if(paathLogFromDb){
+                    removeTrackingForPaathLog(paathLogId);
+                    updatePaathStats(paathId);
+                }
+            });
+        }
+        
+        return null;
     }
 
     function savePaathLog(paathLogId, paathLog) {
