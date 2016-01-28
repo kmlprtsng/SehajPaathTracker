@@ -6,7 +6,21 @@
 
     function deletePaathLog(paathLogId) {
         Meteor.call("validateUser");
-        return PaathLogs.remove({_id: paathLogId});
+        
+        var paathLogFromDb = PaathLogs.findOne(paathLogId);
+        
+        if(paathLogFromDb){
+            var paathId = paathLogFromDb.paathId;
+            
+            return PaathLogs.remove({ _id: paathLogId }, function(){
+                if(paathLogFromDb){
+                    removeTrackingForPaathLog(paathLogId);
+                    updatePaathStats(paathId);
+                }
+            });
+        }
+        
+        return null;
     }
 
     function savePaathLog(paathLogId, paathLog) {
@@ -30,11 +44,19 @@
         else {            
             paathLog.userId = this.userId;
             paathLog.createdDate = new Date();
-            PaathLogs.insert(paathLog);
+            
+            addPaathLog(paathLog);
         }
     }
+    
+    function addPaathLog(paathLog){
+        PaathLogs.insert(paathLog, function (err, paathLogId) {
+            addTrackingForPaathLog(paathLog, paathLogId);
+            updatePaathStats(paathLog.paathId);
+        });
+    }
 
-    function udpatePaathLog(paathLogId, paathLog) {
+    function udpatePaathLog(paathLogId, paathLog, previousPaathLogFromDb) {
         return PaathLogs.update(
             { _id: paathLogId },
             { $set: { 
@@ -44,6 +66,86 @@
                     status: paathLog.status,
                     updatedDate: paathLog.updatedDate
                 } 
+            }, function(){
+                removeTrackingForPaathLog(paathLogId);
+                addTrackingForPaathLog(paathLog, paathLogId);
+                updatePaathStats(paathLog.paathId);
             });
+    }
+    
+    function removeTrackingForPaathLog(paathLogId) {
+        PaathTracking.update(
+            {
+                $or: [{ done: { $in: [paathLogId] } }, { inProgress: { $in: [paathLogId] } }]
+            },
+            {
+                $pull: { done: paathLogId, inProgress: paathLogId }
+            },
+            { multi: true }
+            );
+    }
+    
+    function addTrackingForPaathLog(paathLog, paathLogId) {
+        var logInProgress = paathLog.status !== PaathLogStatuses.done.title,
+            addToSetCommand;
+
+        if (logInProgress) {
+            addToSetCommand = { inProgress: paathLogId };
+        }
+        else {
+            addToSetCommand = { done: paathLogId };
+        }
+
+        for (var i = paathLog.startAng; i < paathLog.finishAng; i++) {
+            PaathTracking.update(
+                {
+                    ang: i,
+                    paathId: paathLog.paathId
+                },
+                {
+                    $addToSet: addToSetCommand
+                },
+                { upsert: true }
+                );
+        }
+    }
+    
+    function updatePaathStats(paathId){
+         var totalAngsDone = PaathTracking.find({paathId: paathId, 'done.0': {$exists: true}}).count();
+         var totalAngsInProgress = PaathTracking.find({paathId: paathId, 'inProgress.0': {$exists: true}}).count();
+        
+        var latestAng = PaathTracking
+                            .find({ paathId: paathId, $or: [{ 'inProgress.0': { $exists: true } }, { 'done.0': { $exists: true } }]},
+                                    { sort:  { ang: -1 }, limit: 1 } )
+                            .fetch();
+        
+        var nextAvailableAng = latestAng.length === 0 
+                                ? 1 
+                                : latestAng[0].ang + 1;
+        
+        var missingAngs = PaathTracking
+                                .find({ paathId: paathId,
+                                        $and: [
+                                            { $or: [  { 'inProgress' : { $exists: false } }, { 'inProgress.0' : { $exists: false } } ] },
+                                            { $or: [  { 'done' : { $exists: false } }, { 'done.0' : { $exists: false } } ] },
+                                        ],
+                                        ang: { $lt: nextAvailableAng }
+                                      },
+                                      { fields: { ang: 1, _id: 0 } })
+                                .fetch();
+
+        missingAngs = _.map(missingAngs, function (missingAng) {
+            return missingAng.ang;
+        });
+        
+        Paaths.update({ _id: paathId },
+                { $set: { 
+                        nextAvailableAng : nextAvailableAng,
+                        totalAngsDone : totalAngsDone,
+                        totalAngsInProgress : totalAngsInProgress,
+                        missingAngs : missingAngs
+                    } 
+                });
+        
     }
 })();

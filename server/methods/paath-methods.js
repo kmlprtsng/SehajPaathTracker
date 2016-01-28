@@ -38,7 +38,11 @@
             title: paath.title,
             createdAt: new Date(),
             users: paath.userIds,
-            adminId: this.userId
+            adminId: this.userId,
+            nextAvailableAng : 1,
+            totalAngsDone : 0,
+            totalAngsInProgress : 0,
+            missingAngs : []
         };
 
         var paathId = Paaths.insert(paathObj);

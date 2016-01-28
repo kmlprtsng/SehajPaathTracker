@@ -10,21 +10,21 @@
          
          <div class="progressCircle-wrapper">
             <div class="progressCircle-text ng-cloak">
-                <div class="paathPercentage">50%</div>
+                <div class="paathPercentage">{{vm.paath.totalAngsDone | paathPercentage}}</div>
                 <div class="progressCircle-text-stats">
-                    Next Ang: 726
+                    Next Ang: {{vm.paath.nextAvailableAng}}
                 </div>
                 <div class="progressCircle-text-stats">
-                    Completed: 715
+                    Completed: {{vm.paath.totalAngsDone}}
                 </div>
                 <div class="progressCircle-text-stats">
-                    In Progress: 10
+                    In Progress: {{vm.paath.totalAngsInProgress}}
                 </div>
             </div>
             <div
                 round-progress
                 max="1430"
-                current="715"
+                current="vm.paath.nextAvailableAng"
                 color="#62a8ea"
                 bgcolor="#eaeaea"
                 radius="85"

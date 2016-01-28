@@ -9,7 +9,7 @@
             <ion-item  ng-repeat="paath in vm.paaths" menu-close="" href="#/paaths/{{paath._id}}">
                 <div class="item-icon-left">
                     <i class="icon ion-ios-bookmarks-outline paaths-icon">
-                        <span class="paaths-icon-text">50%</span>
+                        <span class="paaths-icon-text">{{paath.totalAngsDone | paathPercentage}}</span>
                     </i>
                     {{paath.title}}
                 </div>
