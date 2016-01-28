@@ -7,7 +7,10 @@
     function deletePaathLog(paathLogId) {
         Meteor.call("validateUser");
         //TODO-KC: Delete the tracking data
-        return PaathLogs.remove({_id: paathLogId});
+        return PaathLogs.remove({_id: paathLogId}, function(){
+            removeTrackingForPaathLog(paathLogId);
+            //updatePaathStats(paathLog.paathId); TODO-KC
+        });
     }
 
     function savePaathLog(paathLogId, paathLog) {
@@ -112,15 +115,13 @@
         
         var missingAngs = PaathTracking
                                 .find({ paathId: paathId,
-                                            $or: [  { 'inProgress' : { $exists: false } },
-                                                    { 'inProgress.0' : { $exists: false } }
-                                                ],
-                                            $or: [ { 'done' : { $exists : false } },
-                                                { 'done.0' : { $exists : false } }
-                                                ],
-                                            ang: { $lt: nextAvailableAng }
-                                        },
-                                        { fields: { ang: 1, _id: 0 } })
+                                        $and: [
+                                            { $or: [  { 'inProgress' : { $exists: false } }, { 'inProgress.0' : { $exists: false } } ] },
+                                            { $or: [  { 'done' : { $exists: false } }, { 'done.0' : { $exists: false } } ] },
+                                        ],
+                                        ang: { $lt: nextAvailableAng }
+                                      },
+                                      { fields: { ang: 1, _id: 0 } })
                                 .fetch();
 
         missingAngs = _.map(missingAngs, function (missingAng) {
