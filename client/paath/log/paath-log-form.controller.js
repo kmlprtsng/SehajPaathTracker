@@ -12,7 +12,8 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 
 	vm.deletePaathLog = deletePaathLog;
 	vm.updatePaathLog = updatePaathLog;
-
+    vm.nextAvailableAng =  getNextAvailableAng();
+    
 	init();
 
 	////////////
@@ -22,14 +23,16 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 		$ionicHistory.goBack();
 	}
 
+    function getNextAvailableAng(){
+        return Paaths.find({_id: paathId}).fetch()[0].nextAvailableAng;
+    }
+    
 	function init() {
 		if (paathLogId) {
 			loadPaathLogDetails();
 		}
         else {
-            var paath = Paaths.find({_id: paathId}).fetch()[0];
-            console.log(paath);
-            vm.data.startAng = paath.nextAvailableAng;
+            vm.data.startAng = vm.nextAvailableAng;
         }
 	}
     
