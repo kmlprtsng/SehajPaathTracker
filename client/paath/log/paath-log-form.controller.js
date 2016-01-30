@@ -24,14 +24,23 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 
 	function init() {
 		if (paathLogId) {
-			var paathLog = PaathLogs.findOne(paathLogId);
+			loadPaathLogDetails();
+		}
+        else {
+            var paath = Paaths.find({_id: paathId}).fetch()[0];
+            console.log(paath);
+            vm.data.startAng = paath.nextAvailableAng;
+        }
+	}
+    
+    function loadPaathLogDetails(){
+        var paathLog = PaathLogs.findOne(paathLogId);
 
 			vm.data.startAng = paathLog.startAng;
 			vm.data.finishAng = paathLog.finishAng;
 			vm.data.nextPankti = paathLog.nextPankti;
 			vm.data.selectedStatus = _.where(vm.paathLogStatus, { title: paathLog.status })[0];
-		}
-	}
+    }
 
 	function updatePaathLog(isValid) {
 		if (isValid) {
