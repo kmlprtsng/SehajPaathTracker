@@ -13,7 +13,7 @@
                     autocomplete="off"
                     required
                     min="1"
-                    max="1430">
+                    ng-max="vm.nextAvailableAng">
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.startAng.$dirty">
                 <div ng-show="paathLogForm.startAng.$error.required" class="form-error">
@@ -23,7 +23,7 @@
                     Must be greater than 1
                 </div>
                 <div ng-show="paathLogForm.startAng.$error.max" class="form-error">
-                    Must be less than 1430
+                    Must be less than {{vm.nextAvailableAng}}
                 </div>
             </div>
             
