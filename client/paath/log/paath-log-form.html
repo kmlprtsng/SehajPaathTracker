@@ -7,7 +7,8 @@
                     name="startAng"
                     type="number" 
                     placeholder="Starting Ang" 
-                    ng-model="vm.data.startAng" 
+                    ng-model="vm.data.startAng"
+                    autocomplete="off"
                     required
                     min="1"
                     max="1430">
@@ -33,6 +34,7 @@
                     ng-model="vm.data.finishAng"
                     ng-required="vm.data.selectedStatus.finished"
                     ng-min="vm.data.startAng + 1"
+                    autocomplete="off"
                     max="1430">
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.finishAng.$dirty">
@@ -52,6 +54,7 @@
                     name="nextPantki"
                     type="text" 
                     placeholder="Finishing Pankti"
+                    autocomplete="off"
                     ng-model="vm.data.nextPankti">
             </label>
             <label class="item item-input item-select">
