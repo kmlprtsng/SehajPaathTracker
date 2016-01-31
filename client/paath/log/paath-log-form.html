@@ -1,16 +1,16 @@
 <ion-view title="{{vm.newPaathLog ? 'Add Log' : 'Update Log'}}">
     <ion-content padding="false" class="has-header">
         <form class="list" name="paathLogForm" novalidate ng-submit="vm.updatePaathLog(paathLogForm.$valid)">
-            <label class="item item-input">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Starting Ang *</span>
                 <input 
                     name="startAng"
                     type="number" 
-                    placeholder="Starting Ang *" 
+                    placeholder="Starting Ang" 
                     ng-model="vm.data.startAng" 
                     required
                     min="1"
-                    max="1430"
-                    >
+                    max="1430">
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.startAng.$dirty">
                 <div ng-show="paathLogForm.startAng.$error.required" class="form-error">
@@ -24,7 +24,8 @@
                 </div>
             </div>
             
-            <label class="item item-input">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Finishing Ang</span>
                 <input 
                     name="finishAng"
                     type="number" 
@@ -32,8 +33,7 @@
                     ng-model="vm.data.finishAng"
                     ng-required="vm.data.selectedStatus.finished"
                     ng-min="vm.data.startAng + 1"
-                    max="1430"
-                    >
+                    max="1430">
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.finishAng.$dirty">
                 <div ng-show="paathLogForm.finishAng.$error.required" class="form-error">
@@ -46,7 +46,8 @@
                     Must be less than 1430
                 </div>
             </div>
-            <label class="item item-input">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Finishing Pankti</span>
                 <input 
                     name="nextPantki"
                     type="text" 
