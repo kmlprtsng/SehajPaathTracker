@@ -28,7 +28,7 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
     }
     
 	function init() {
-		if (paathLogId) {
+		if (!vm.newPaathLog) {
 			loadPaathLogDetails();
 		}
         else {
