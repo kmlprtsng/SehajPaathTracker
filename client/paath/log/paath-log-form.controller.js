@@ -1,7 +1,9 @@
 angular.module('sehajPaathTracker')
 	.controller('PaathLogFormCtrl', PaathLogFormController);
 
-function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paathLogStatues, notifications) {
+function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paathLogStatues, notifications, $reactive, $ionicPopup, $timeout) {
+    $reactive(this).attach($scope);
+    
 	var vm = this,
 		paathId = $stateParams.paathId,
 		paathLogId = $stateParams.paathLogId;
@@ -12,7 +14,33 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 
 	vm.deletePaathLog = deletePaathLog;
 	vm.updatePaathLog = updatePaathLog;
-    vm.nextAvailableAng =  getNextAvailableAng();
+    
+    vm.helpers({
+		nextAvailableAng() { 
+			return Paaths.findOne(paathId).nextAvailableAng;
+		} 
+	});
+    
+    $scope.$watch("vm.nextAvailableAng", function(oldVal, newVal){
+       if(oldVal === newVal) return;
+       
+       if(vm.newPaathLog){
+           $timeout(function(){
+                var confirmPopup = $ionicPopup.confirm({
+                    title: 'Chardikala Ji',
+                    template: 'The next available ang has just changed to ' 
+                                    + vm.nextAvailableAng 
+                                    + '. <br /><br />Would you like to update your starting ang?'
+                });
+                
+                confirmPopup.then(function(res) {
+                    if(res) {
+                        vm.data.startAng = vm.nextAvailableAng;
+                    }
+                });
+            });
+       } 
+    });
     
 	init();
 
@@ -22,10 +50,6 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 		Meteor.call('deletePaathLog', paathLogId)
 		$ionicHistory.goBack();
 	}
-
-    function getNextAvailableAng(){
-        return Paaths.find({_id: paathId}).fetch()[0].nextAvailableAng;
-    }
     
 	function init() {
 		if (!vm.newPaathLog) {
