@@ -2,7 +2,7 @@
     <ion-content padding="false" class="has-header">
         <h1 class="hd-stat center m-t-lg" ng-if="vm.newPaathLog">Next Available Ang: {{vm.paath.nextAvailableAng}}</h1>
         <div class="center m-b-lg" ng-show="vm.paath.missingAngs.length > 0">
-            <button class="button button-small button-assertive">Select Missing Angs</button>
+            <button class="button button-small button-assertive" ng-click="vm.showMissingAngs()">Show Missing Angs</button>
         </div>
         
         <form class="list" name="paathLogForm" novalidate ng-submit="vm.updatePaathLog(paathLogForm.$valid)">

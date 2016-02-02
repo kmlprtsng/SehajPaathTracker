@@ -13,7 +13,8 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	vm.paathLogStatus = paathLogStatues;
 
 	vm.deletePaathLog = deletePaathLog;
-	vm.updatePaathLog = updatePaathLog;
+	vm.showMissingAngs = showMissingAngs;
+    vm.updatePaathLog = updatePaathLog;
     
     vm.helpers({
 		paath() { 
@@ -63,12 +64,19 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
     function loadPaathLogDetails(){
         var paathLog = PaathLogs.findOne(paathLogId);
 
-			vm.data.startAng = paathLog.startAng;
-			vm.data.finishAng = paathLog.finishAng;
-			vm.data.nextPankti = paathLog.nextPankti;
-			vm.data.selectedStatus = _.where(vm.paathLogStatus, { title: paathLog.status })[0];
+        vm.data.startAng = paathLog.startAng;
+        vm.data.finishAng = paathLog.finishAng;
+        vm.data.nextPankti = paathLog.nextPankti;
+        vm.data.selectedStatus = _.where(vm.paathLogStatus, { title: paathLog.status })[0];
     }
 
+    function showMissingAngs(){
+        $ionicPopup.alert({
+            title: 'Waheguru Bhala Kare',
+            template: "Missing Angs are: " + vm.paath.missingAngs.join(", ")
+        });
+    }
+    
 	function updatePaathLog(isValid) {
 		if (isValid) {
 			var paathLog = {
