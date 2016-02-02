@@ -21,7 +21,7 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 		} 
 	});
     
-    $scope.$watch("vm.nextAvailableAng", function(oldVal, newVal){
+    var nextAvailableAngWatch = $scope.$watch("vm.nextAvailableAng", function(oldVal, newVal){
        if(oldVal === newVal) return;
        
        if(vm.newPaathLog){
@@ -78,6 +78,8 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 				status: vm.data.selectedStatus.title,
 				paathId: paathId
 			};
+
+            nextAvailableAngWatch();
 
 			Meteor.call('savePaathLog', paathLogId, paathLog, function(error, result){
                 
