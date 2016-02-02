@@ -16,12 +16,12 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	vm.updatePaathLog = updatePaathLog;
     
     vm.helpers({
-		nextAvailableAng() { 
-			return Paaths.findOne(paathId).nextAvailableAng;
+		paath() { 
+			return Paaths.findOne(paathId);
 		} 
 	});
     
-    var nextAvailableAngWatch = $scope.$watch("vm.nextAvailableAng", function(oldVal, newVal){
+    var nextAvailableAngWatch = $scope.$watch("vm.paath.nextAvailableAng", function(oldVal, newVal){
        if(oldVal === newVal) return;
        
        if(vm.newPaathLog){
@@ -29,13 +29,13 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Chardikala Ji',
                     template: 'The next available ang has just changed to ' 
-                                    + vm.nextAvailableAng 
+                                    + vm.paath.nextAvailableAng 
                                     + '. <br /><br />Would you like to update your starting ang?'
                 });
                 
                 confirmPopup.then(function(res) {
                     if(res) {
-                        vm.data.startAng = vm.nextAvailableAng;
+                        vm.data.startAng = vm.paath.nextAvailableAng;
                     }
                 });
             });
@@ -56,7 +56,7 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 			loadPaathLogDetails();
 		}
         else {
-            vm.data.startAng = vm.nextAvailableAng;
+            vm.data.startAng = vm.paath.nextAvailableAng;
         }
 	}
     
