@@ -1,7 +1,9 @@
 angular.module('sehajPaathTracker')
 	.controller('PaathLogFormCtrl', PaathLogFormController);
 
-function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paathLogStatues, notifications) {
+function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paathLogStatues, notifications, $reactive, $ionicPopup, $timeout) {
+    $reactive(this).attach($scope);
+    
 	var vm = this,
 		paathId = $stateParams.paathId,
 		paathLogId = $stateParams.paathLogId;
@@ -11,8 +13,36 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	vm.paathLogStatus = paathLogStatues;
 
 	vm.deletePaathLog = deletePaathLog;
-	vm.updatePaathLog = updatePaathLog;
-
+	vm.showMissingAngs = showMissingAngs;
+    vm.updatePaathLog = updatePaathLog;
+    
+    vm.helpers({
+		paath() { 
+			return Paaths.findOne(paathId);
+		} 
+	});
+    
+    var nextAvailableAngWatch = $scope.$watch("vm.paath.nextAvailableAng", function(oldVal, newVal){
+       if(oldVal === newVal) return;
+       
+       if(vm.newPaathLog){
+           $timeout(function(){
+                var confirmPopup = $ionicPopup.confirm({
+                    title: 'Chardikala Ji',
+                    template: 'The next available ang has just changed to ' 
+                                    + vm.paath.nextAvailableAng 
+                                    + '. <br /><br />Would you like to update your starting ang?'
+                });
+                
+                confirmPopup.then(function(res) {
+                    if(res) {
+                        vm.data.startAng = vm.paath.nextAvailableAng;
+                    }
+                });
+            });
+       } 
+    });
+    
 	init();
 
 	////////////
@@ -21,18 +51,32 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 		Meteor.call('deletePaathLog', paathLogId)
 		$ionicHistory.goBack();
 	}
-
+    
 	function init() {
-		if (paathLogId) {
-			var paathLog = PaathLogs.findOne(paathLogId);
-
-			vm.data.startAng = paathLog.startAng;
-			vm.data.finishAng = paathLog.finishAng;
-			vm.data.nextPankti = paathLog.nextPankti;
-			vm.data.selectedStatus = _.where(vm.paathLogStatus, { title: paathLog.status })[0];
+		if (!vm.newPaathLog) {
+			loadPaathLogDetails();
 		}
+        else {
+            vm.data.startAng = vm.paath.nextAvailableAng;
+        }
 	}
+    
+    function loadPaathLogDetails(){
+        var paathLog = PaathLogs.findOne(paathLogId);
 
+        vm.data.startAng = paathLog.startAng;
+        vm.data.finishAng = paathLog.finishAng;
+        vm.data.nextPankti = paathLog.nextPankti;
+        vm.data.selectedStatus = _.where(vm.paathLogStatus, { title: paathLog.status })[0];
+    }
+
+    function showMissingAngs(){
+        $ionicPopup.alert({
+            title: 'Waheguru Bhala Kare',
+            template: "Missing Angs are: " + vm.paath.missingAngs.join(", ")
+        });
+    }
+    
 	function updatePaathLog(isValid) {
 		if (isValid) {
 			var paathLog = {
@@ -42,6 +86,8 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 				status: vm.data.selectedStatus.title,
 				paathId: paathId
 			};
+
+            nextAvailableAngWatch();
 
 			Meteor.call('savePaathLog', paathLogId, paathLog, function(error, result){
                 

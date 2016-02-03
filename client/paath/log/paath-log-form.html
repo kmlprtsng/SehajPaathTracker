@@ -1,16 +1,21 @@
 <ion-view title="{{vm.newPaathLog ? 'Add Log' : 'Update Log'}}">
     <ion-content padding="false" class="has-header">
+        <h1 class="hd-stat center m-t-lg" ng-if="vm.newPaathLog">Next Available Ang: {{vm.paath.nextAvailableAng}}</h1>
+        
+        <missing-angs angs="vm.paath.missingAngs"></missing-angs>
+        
         <form class="list" name="paathLogForm" novalidate ng-submit="vm.updatePaathLog(paathLogForm.$valid)">
-            <label class="item item-input">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Starting Ang *</span>
                 <input 
                     name="startAng"
                     type="number" 
-                    placeholder="Starting Ang *" 
-                    ng-model="vm.data.startAng" 
+                    placeholder="Starting Ang" 
+                    ng-model="vm.data.startAng"
+                    autocomplete="off"
                     required
                     min="1"
-                    max="1430"
-                    >
+                    ng-max="vm.paath.nextAvailableAng">
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.startAng.$dirty">
                 <div ng-show="paathLogForm.startAng.$error.required" class="form-error">
@@ -20,11 +25,12 @@
                     Must be greater than 1
                 </div>
                 <div ng-show="paathLogForm.startAng.$error.max" class="form-error">
-                    Must be less than 1430
+                    Must be less than {{vm.paath.nextAvailableAng}}
                 </div>
             </div>
             
-            <label class="item item-input">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Finishing Ang</span>
                 <input 
                     name="finishAng"
                     type="number" 
@@ -32,8 +38,8 @@
                     ng-model="vm.data.finishAng"
                     ng-required="vm.data.selectedStatus.finished"
                     ng-min="vm.data.startAng + 1"
-                    max="1430"
-                    >
+                    autocomplete="off"
+                    max="1430">
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.finishAng.$dirty">
                 <div ng-show="paathLogForm.finishAng.$error.required" class="form-error">
@@ -46,11 +52,13 @@
                     Must be less than 1430
                 </div>
             </div>
-            <label class="item item-input">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Finishing Pankti</span>
                 <input 
                     name="nextPantki"
                     type="text" 
                     placeholder="Finishing Pankti"
+                    autocomplete="off"
                     ng-model="vm.data.nextPankti">
             </label>
             <label class="item item-input item-select">
@@ -68,10 +76,10 @@
                     Please choose a status
             </div>
             
-            <button type="submit" class="button button-positive button-block">{{vm.newPaathLog ? "Add" : "Update"}}</button>        
+            <button type="submit" class="button button-positive button-full">{{vm.newPaathLog ? "Add" : "Update"}}</button>        
         </form>
         
-        <button class="button button-assertive button-block" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog">Delete</button>
+        <button class="button button-assertive button-full" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog">Delete</button>
         
     </ion-content>
 </ion-view>
