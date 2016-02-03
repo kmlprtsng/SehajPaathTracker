@@ -5,15 +5,18 @@
         .module('sehajPaathTracker')
         .controller('MissingAngsCtrl', MissngAngsController);
 
-    // ControllerController.$inject = ['dependency1'];
-    function MissngAngsController() {
+    MissngAngsController.$inject = ['$ionicPopup'];
+    function MissngAngsController($ionicPopup) {
         var vm = this;
         
-
-        activate();
-
+        vm.show = show;
+        
         ////////////////
-
-        function activate() { }
+        function show(){
+            $ionicPopup.alert({
+                title: "Missing Angs",
+                template: "Missing angs are: " + vm.angs.join(", ")
+            });
+        }
     }
 })();
