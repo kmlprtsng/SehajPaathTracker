@@ -6,7 +6,10 @@
                 href="#/paaths/{{log.paathId}}/paath-log/{{log._id}}"
                 class="item-icon-right">
                 {{log.startAng}} - {{log.finishAng}}
-                <span class="log-time">{{log.status}} - {{log.updatedDate | calendar}}</span>
+                <span class="log-subtext">{{log.status}} - {{log.userId | nameById}}</span>
+                <span class="log-time">
+                    {{log.updatedDate | calendar}}
+                </span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>          
         </ion-list>

@@ -12,7 +12,7 @@ function nameFilter(){
             return "You";
         }
         
-        let hasName = user && user.profile && user.profile.name;
+        var hasName = user && user.profile && user.profile.name;
         
         return hasName ? user.profile.name : user.emails[0].address;
     };

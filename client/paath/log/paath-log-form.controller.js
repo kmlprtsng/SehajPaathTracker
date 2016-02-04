@@ -16,7 +16,7 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	vm.deletePaathLog = deletePaathLog;
 	vm.showMissingAngs = showMissingAngs;
     vm.updatePaathLog = updatePaathLog;
-    vm.showCrudButtons = vm.showCrudButtons; 
+    vm.showCrudButtons = showCrudButtons; 
     
     vm.helpers({
 		paath() { 

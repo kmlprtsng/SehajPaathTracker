@@ -5,7 +5,7 @@
             <missing-angs angs="vm.paath.missingAngs"></missing-angs>
         </div>
         <div ng-if="!vm.newPaathLog">
-            <h1 class="hd-stat center m-t-lg">Log User: {{vm.data.userId}}</h1>
+            <h1 class="hd-stat center m-t-lg">Paathi: {{vm.data.userId | nameById}}</h1>
         </div>
         
         <form class="list" name="paathLogForm" novalidate ng-submit="vm.updatePaathLog(paathLogForm.$valid)">
