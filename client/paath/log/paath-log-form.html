@@ -80,7 +80,7 @@
                     Please choose a status
             </div>
 
-            <div ng-if="vm.newPaathLog || vm.data.userId === vm.loggedInUserId">
+            <div ng-if="vm.showCrudButtons()">
                 <button type="submit" class="button button-positive button-full">{{vm.newPaathLog ? "Add" : "Update"}}</button> 
                 <button class="button button-assertive button-full" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog">Delete</button>
             </div>
