@@ -5,8 +5,8 @@
                 ng-repeat="log in vm.paathLogs"
                 href="#/paaths/{{log.paathId}}/paath-log/{{log._id}}"
                 class="item-icon-right">
-                {{log.startAng}} - {{log.finishAng}} ({{log.status}})
-                Last updated {{log.updatedDate}}
+                {{log.startAng}} - {{log.finishAng}}
+                <span class="log-time">{{log.status}} - {{log.updatedDate | calendar}}</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>          
         </ion-list>
