@@ -11,10 +11,12 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	vm.newPaathLog = !paathLogId;
 	vm.data = {};
 	vm.paathLogStatus = paathLogStatues;
+    vm.loggedInUserId = Meteor.userId();
 
 	vm.deletePaathLog = deletePaathLog;
 	vm.showMissingAngs = showMissingAngs;
     vm.updatePaathLog = updatePaathLog;
+    vm.showCrudButtons = showCrudButtons; 
     
     vm.helpers({
 		paath() { 
@@ -58,6 +60,7 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 		}
         else {
             vm.data.startAng = vm.paath.nextAvailableAng;
+            vm.data.userId = vm.loggedInUserId;
         }
 	}
     
@@ -68,6 +71,7 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
         vm.data.finishAng = paathLog.finishAng;
         vm.data.nextPankti = paathLog.nextPankti;
         vm.data.selectedStatus = _.where(vm.paathLogStatus, { title: paathLog.status })[0];
+        vm.data.userId = paathLog.userId;
     }
 
     function showMissingAngs(){
@@ -75,6 +79,10 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
             title: 'Waheguru Bhala Kare',
             template: "Missing Angs are: " + vm.paath.missingAngs.join(", ")
         });
+    }
+    
+    function showCrudButtons(){
+        return vm.newPaathLog || vm.data.userId === vm.loggedInUserId;
     }
     
 	function updatePaathLog(isValid) {

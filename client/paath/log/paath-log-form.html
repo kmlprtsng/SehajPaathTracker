@@ -1,8 +1,12 @@
 <ion-view title="{{vm.newPaathLog ? 'Add Log' : 'Update Log'}}">
     <ion-content padding="false" class="has-header">
-        <h1 class="hd-stat center m-t-lg" ng-if="vm.newPaathLog">Next Available Ang: {{vm.paath.nextAvailableAng}}</h1>
-        
-        <missing-angs angs="vm.paath.missingAngs"></missing-angs>
+        <div ng-if="vm.newPaathLog">
+            <h1 class="hd-stat center m-t-lg">Next Available Ang: {{vm.paath.nextAvailableAng}}</h1>
+            <missing-angs angs="vm.paath.missingAngs"></missing-angs>
+        </div>
+        <div ng-if="!vm.newPaathLog">
+            <h1 class="hd-stat center m-t-lg">Paathi: {{vm.data.userId | nameById}}</h1>
+        </div>
         
         <form class="list" name="paathLogForm" novalidate ng-submit="vm.updatePaathLog(paathLogForm.$valid)">
             <label class="item item-input item-floating-label">
@@ -75,11 +79,11 @@
             <div ng-show="paathLogForm.logStatus.$error.required && (paathLogForm.$submitted || paathLogForm.logStatus.$dirty)" class="form-error">
                     Please choose a status
             </div>
-            
-            <button type="submit" class="button button-positive button-full">{{vm.newPaathLog ? "Add" : "Update"}}</button>        
+
+            <div ng-if="vm.showCrudButtons()">
+                <button type="submit" class="button button-positive button-full">{{vm.newPaathLog ? "Add" : "Update"}}</button> 
+                <button class="button button-assertive button-full" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog">Delete</button>
+            </div>
         </form>
-        
-        <button class="button button-assertive button-full" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog">Delete</button>
-        
     </ion-content>
 </ion-view>
