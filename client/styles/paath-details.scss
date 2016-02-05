@@ -39,6 +39,16 @@
     margin-bottom: 5px;
 }
 
+.userPaathStatus-latest{
+    p:last-child{
+        margin-bottom: 0;
+    }
+    
+    .userPaathStatus-latest-finishingPankti{
+        font-style: italic;
+        font-size: 0.9em;
+    }
+}
 .userPaathStatus-time {
     position: absolute;
     top: 10px;

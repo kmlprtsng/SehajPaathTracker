@@ -1,6 +1,9 @@
 <div>
     <div class="userPaathStatus-name">{{vm.user | name}}</div>
-    <div class="userPaathStatus-latest">{{vm.user | name}} {{vm.latestLog | userLogString:vm.user}}</div>
+    <div class="userPaathStatus-latest">
+        <p>{{vm.user | name}} {{vm.latestLog | userLogString:vm.user}}</p>
+        <p class="userPaathStatus-latest-finishingPankti" ng-show="vm.latestLog.nextPankti.trim().length > 0">Finishing Pankti: {{vm.latestLog.nextPankti}}</p>
+    </div>
     <div class="userPaathStatus-time">
         <span am-time-ago="vm.latestLog.updatedDate"></span>
     </div>
