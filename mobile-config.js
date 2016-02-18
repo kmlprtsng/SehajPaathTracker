@@ -1,6 +1,6 @@
 App.info({
-  name: 'sehajPaathTracker',
-  description: 'An iOS app built with Meteor',
+  name: 'Sehaj Paath Tracker',
+  description: 'An app that lets the group of users colleborate the reading of Sikh Scriptures Sri Guru Granth Sahib ji.',
   version: '0.0.1'
 });
 
