@@ -1,0 +1,7 @@
+html input[disabled] {
+    background: transparent;
+}
+
+.item-select-disabled:after {
+    display: none;
+}
