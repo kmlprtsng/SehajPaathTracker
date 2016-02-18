@@ -39,7 +39,7 @@
                 <input 
                     name="finishAng"
                     type="number" 
-                    placeholder="Finishing Ang"
+                    placeholder="{{ vm.isAllowedToEdit ? 'Finishing Ang' : 'No Finishing Ang'  }}"
                     ng-model="vm.data.finishAng"
                     ng-required="vm.data.selectedStatus.finished"
                     ng-min="vm.data.startAng + 1"
@@ -63,7 +63,7 @@
                 <input 
                     name="nextPantki"
                     type="text" 
-                    placeholder="Finishing Pankti"
+                    placeholder="{{ vm.isAllowedToEdit ? 'Finishing Pankti' : 'Paathi sahib didn\'t enter finishing pankti'  }}"
                     autocomplete="off"
                     ng-model="vm.data.nextPankti"
                     ng-disabled="!vm.isAllowedToEdit">

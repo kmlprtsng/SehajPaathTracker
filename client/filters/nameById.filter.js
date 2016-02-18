@@ -13,7 +13,6 @@ function nameByIdFilter(){
         }
         
         var user = Meteor.users.findOne(userId);
-        console.log(user);
         
         var hasName = user && user.profile && user.profile.name;
         
