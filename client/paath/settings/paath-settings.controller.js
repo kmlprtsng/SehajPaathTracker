@@ -9,6 +9,7 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
 
     vm.addUserForEmail = "";
     vm.editPaathTitle = false;
+    vm.loggedInUserId = Meteor.userId();
     
     vm.subscribe('paaths');
     vm.subscribe('users');
