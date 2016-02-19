@@ -1,0 +1,19 @@
+{
+  "servers": [
+    {
+      "host": "localhost",
+      "username": "root",
+      "pem": "~/.ssh/id_rsa",
+      "env": {}
+    }
+  ],
+  "setupMongo": true,
+  "appName": "sehajPaathTracker",
+  "app": ".",
+  "env": {
+    "PORT": 80,
+    "ROOT_URL": "http://localhost"
+  },
+  "deployCheckWaitTime": 15,
+  "enableUploadProgressBar": true
+}
