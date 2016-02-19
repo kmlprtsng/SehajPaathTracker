@@ -5,6 +5,9 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUser
 	$reactive(this).attach($scope);
 
 	var vm = this;
+    vm.subscribe('paaths');
+	vm.subscribe('users');
+    
 	vm.loggedInUser = Meteor.user();
 
 	vm.data = {
@@ -22,8 +25,6 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUser
 		vm.data.formValid = !(_.isEmpty(vm.data.title));
 	});
 
-	vm.subscribe('users');
-		
 	//////////
 		
 	function createPaath() {

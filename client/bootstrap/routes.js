@@ -1,7 +1,5 @@
 angular.module('sehajPaathTracker')
 	.config(function ($stateProvider, $urlRouterProvider) {
-		Meteor.subscribe('paaths');
-				
 		$stateProvider
 			.state('login', {
 				url: '/login',

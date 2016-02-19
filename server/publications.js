@@ -3,7 +3,9 @@ Meteor.publish('users', function () {
 });
 
 Meteor.publishComposite('paaths', function () {
-    if (!this.userId) return;
+    if (!this.userId) { 
+        return this.ready();
+    }
     
     return {
         find: function () {

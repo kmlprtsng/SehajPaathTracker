@@ -6,8 +6,9 @@ function PaathDetailsController($scope, $stateParams, $reactive, $state) {
 	
 	var vm = this,
 		paathId = $stateParams.paathId;
-        
-    vm.subscribe("users");
+    
+    vm.subscribe('paaths');
+	vm.subscribe('users');
     
 	vm.helpers({
 		paath() { 
