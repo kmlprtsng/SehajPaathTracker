@@ -42,7 +42,7 @@
                     type="number" 
                     placeholder="{{ vm.isAllowedToEdit ? 'Finishing Ang' : 'No Finishing Ang'  }}"
                     ng-model="vm.data.finishAng"
-                    ng-model-options='{ debounce: 200 }'
+                    ng-model-options='{ debounce: 300 }'
                     ng-required="vm.data.selectedStatus.finished"
                     ng-min="vm.data.startAng + 1"
                     autocomplete="off"
