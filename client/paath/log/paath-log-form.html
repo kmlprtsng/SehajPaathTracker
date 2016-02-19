@@ -25,13 +25,13 @@
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.startAng.$dirty">
                 <div ng-show="paathLogForm.startAng.$error.required" class="form-error">
-                    This is required
+                    Starting Ang is required
                 </div>
                 <div ng-show="paathLogForm.startAng.$error.min" class="form-error">
-                    Must be greater than 1
+                    Starting Ang must be greater than 1
                 </div>
                 <div ng-show="paathLogForm.startAng.$error.max" class="form-error">
-                    Must be less than {{vm.paath.nextAvailableAng}}
+                    Starting Ang cannot be greater than {{vm.paath.nextAvailableAng}}
                 </div>
             </div>
             
@@ -51,13 +51,13 @@
             </label>
             <div ng-show="paathLogForm.$submitted || paathLogForm.finishAng.$dirty">
                 <div ng-show="paathLogForm.finishAng.$error.required" class="form-error">
-                    This is required
+                    Finishing Ang is required
                 </div>
                 <div ng-show="paathLogForm.finishAng.$error.min" class="form-error">
-                    Must be greater than the starting ang
+                    Finishing Ang must be greater than the starting ang
                 </div>
                 <div ng-show="paathLogForm.finishAng.$error.max" class="form-error">
-                    Must be less than 1430
+                    Finishing Ang be must not be greater than 1430
                 </div>
             </div>
             <label class="item item-input item-floating-label">
@@ -82,7 +82,7 @@
                 </select>
             </label>
             <div ng-show="paathLogForm.logStatus.$error.required && (paathLogForm.$submitted || paathLogForm.logStatus.$dirty)" class="form-error">
-                    Please choose a status
+                    Paath Status is required
             </div>
 
             <div ng-if="vm.isAllowedToEdit">
