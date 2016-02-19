@@ -19,6 +19,6 @@
             on-cancel="vm.titleModal.onCancel">
         </edit-paath-title>
 
-        <button class="button button-assertive button-block" ng-click="vm.deletePaath()">Delete</button>
+        <button class="button button-assertive button-block" ng-if="vm.paath.adminId === vm.loggedInUserId" ng-click="vm.deletePaath()">Delete</button>
     </ion-content>
 </ion-view>

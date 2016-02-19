@@ -19,7 +19,7 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	vm.deletePaathLog = deletePaathLog;
 	vm.showMissingAngs = showMissingAngs;
     vm.updatePaathLog = updatePaathLog;
-    vm.showCrudButtons = showCrudButtons; 
+    vm.isAllowedToEdit = false;
     
     vm.helpers({
 		paath() { 
@@ -65,6 +65,8 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
             vm.data.startAng = vm.paath.nextAvailableAng;
             vm.data.userId = vm.loggedInUserId;
         }
+        
+        vm.isAllowedToEdit = vm.newPaathLog || vm.data.userId === vm.loggedInUserId; 
 	}
     
     function loadPaathLogDetails(){
@@ -82,10 +84,6 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
             title: 'Waheguru Bhala Kare',
             template: "Missing Angs are: " + vm.paath.missingAngs.join(", ")
         });
-    }
-    
-    function showCrudButtons(){
-        return vm.newPaathLog || vm.data.userId === vm.loggedInUserId;
     }
     
 	function updatePaathLog(isValid) {

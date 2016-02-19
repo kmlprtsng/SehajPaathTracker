@@ -5,7 +5,13 @@
                 ng-repeat="log in vm.paathLogs"
                 href="#/paaths/{{log.paathId}}/paath-log/{{log._id}}"
                 class="item-icon-right">
-                {{log.startAng}} - {{log.finishAng}}
+                <span ng-if="log.finishAng">
+                    {{log.startAng}} - {{log.finishAng}}
+                </span>
+                <span ng-if="!log.finishAng">
+                    {{log.startAng}}+
+                </span>
+                
                 <span class="log-subtext">{{log.status}} - {{log.userId | nameById}}</span>
                 <span class="log-time">
                     {{log.updatedDate | calendar}}
