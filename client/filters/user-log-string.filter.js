@@ -21,10 +21,22 @@
 
             switch (log.status) {
                 case PaathLogStatuses.inProgress.title:
-                    logText = "{hasHave} in progress ang {startAng} to {finishAng}";
+                    if(log.finishAng) {
+                        logText = "{hasHave} in progress ang {startAng} to {finishAng}";
+                    }
+                    else{
+                        logText = "{hasHave} in progress ang {startAng}+";
+                    }
                     break;
                 case PaathLogStatuses.willDo.title:
-                    logText = "{hasHave} assigned ang {startAng} to {finishAng}";
+                    
+                    if(log.finishAng) {
+                        logText = "{hasHave} assigned ang {startAng} to {finishAng}";
+                    }
+                    else{
+                        logText = "{hasHave} assigned ang {startAng}+";
+                    }
+                    
                     break;
                 case PaathLogStatuses.done.title:
                     logText = "{hasHave} completed ang {startAng} to {finishAng}";
