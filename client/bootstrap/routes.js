@@ -94,7 +94,8 @@ angular.module('sehajPaathTracker')
 				url: '/settings',
                 views: {
                     'tab-settings': {
-                        templateUrl: 'client/settings/settings.html'
+                        templateUrl: 'client/settings/settings.html',
+                        controller: 'SettingsCtrl as vm'
                     }
                 }
 			});

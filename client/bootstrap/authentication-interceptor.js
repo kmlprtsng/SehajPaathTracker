@@ -14,6 +14,7 @@
         if (isAuthRequired && !isAuthenticated) {
           $state.transitionTo("login");
           event.preventDefault();
+          return;
         }
         
         if(isAuthenticated && toState.name === "login"){
