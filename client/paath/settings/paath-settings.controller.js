@@ -11,9 +11,6 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
     vm.editPaathTitle = false;
     vm.loggedInUserId = Meteor.userId();
     
-    vm.subscribe('paaths');
-    vm.subscribe('users');
-
     vm.helpers({
         paath() {
             return Paaths.findOne(paathId);
@@ -60,7 +57,7 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
             disableAnimate: true
         });
 
-        $state.go("paaths");
+        $state.go("tab.paaths");
     }
 
     function showTitleModal() {

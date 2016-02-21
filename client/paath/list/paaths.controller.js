@@ -5,10 +5,10 @@ function PaathsController($scope, $reactive) {
     $reactive(this).attach($scope);
 
     var vm = this;
-    
+
     vm.isLoading = true;
-    
-    vm.subscribe('paaths', function(){}, {
+
+     vm.subscribe('paaths', function(){}, {
         onReady: function () {
             vm.helpers({
                 paaths() {
@@ -18,7 +18,5 @@ function PaathsController($scope, $reactive) {
             
             vm.isLoading = false;
         }
-    });
-    
-    vm.subscribe('users');
+     });
 }

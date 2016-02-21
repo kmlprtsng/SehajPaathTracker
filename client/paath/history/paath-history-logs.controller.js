@@ -6,9 +6,6 @@ function PaathHistoryLogsController($scope, $stateParams, $reactive) {
 	
 	var vm = this,
 		paathId = $stateParams.paathId;
-        
-    vm.subscribe('paaths');
-	vm.subscribe('users');
 
 	vm.helpers({
 		paathLogs() { 

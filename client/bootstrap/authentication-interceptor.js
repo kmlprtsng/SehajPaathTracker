@@ -17,7 +17,7 @@
         }
         
         if(isAuthenticated && toState.name === "login"){
-          $state.transitionTo("paaths");
+          $state.transitionTo("tab.paaths");
           event.preventDefault();
         }
       });

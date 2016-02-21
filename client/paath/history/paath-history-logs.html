@@ -1,9 +1,9 @@
-<ion-view title="History Logs">
+<ion-view view-title="History Logs">
     <ion-content padding="false" class="has-header">
         <ion-list>
             <ion-item 
                 ng-repeat="log in vm.paathLogs"
-                href="#/paaths/{{log.paathId}}/paath-log/{{log._id}}"
+                href="#/tab/paaths/{{log.paathId}}/paath-log/{{log._id}}"
                 class="item-icon-right">
                 <span ng-if="log.finishAng">
                     {{log.startAng}} - {{log.finishAng}}
