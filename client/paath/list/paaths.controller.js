@@ -1,16 +1,24 @@
 angular.module('sehajPaathTracker')
-	.controller('PaathsCtrl', PaathsController);
+    .controller('PaathsCtrl', PaathsController);
 
 function PaathsController($scope, $reactive) {
-	$reactive(this).attach($scope);
+    $reactive(this).attach($scope);
 
-	var vm = this;
-    vm.subscribe('paaths');
-	vm.subscribe('users');
-	
-	vm.helpers({
-		paaths() {
-			return Paaths.find();
-		}
-	});
+    var vm = this;
+    
+    vm.isLoading = true;
+    
+    vm.subscribe('paaths', function(){}, {
+        onReady: function () {
+            vm.helpers({
+                paaths() {
+                    return Paaths.find();
+                }
+            });
+            
+            vm.isLoading = false;
+        }
+    });
+    
+    vm.subscribe('users');
 }
