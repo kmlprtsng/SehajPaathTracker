@@ -5,7 +5,7 @@
         .module('sehajPaathTracker')
         .controller('SettingsCtrl', SettingsController);
 
-    function SettingsController($meteor, $ionicHistory, $state, $stateParams) {
+    function SettingsController($meteor, $ionicHistory, $state) {
         var vm = this;
         
         vm.logout = logout;
@@ -19,7 +19,7 @@
 				historyRoot: true
 			});
 
-			$state.go("login", $stateParams, { notify: false });
+			$state.go("login", { isSigningOut: true});
         }
     }
 })();

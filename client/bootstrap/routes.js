@@ -2,7 +2,7 @@ angular.module('sehajPaathTracker')
 	.config(function ($stateProvider, $urlRouterProvider) {
 		$stateProvider
 			.state('login', {
-				url: '/login',
+				url: '/login?logout=:isSigningOut',
 				templateUrl: 'client/user-accounts/login.html',
 				authRequired: false
 			})

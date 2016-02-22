@@ -17,7 +17,7 @@
           return;
         }
         
-        if(isAuthenticated && toState.name === "login"){
+        if(isAuthenticated && toState.name === "login" && toParams.isSigningOut !== "true"){
           $state.transitionTo("tab.paaths");
           event.preventDefault();
         }
