@@ -36,14 +36,14 @@
             </div>
             
             <label class="item item-input item-floating-label">
-                <span class="input-label">Finishing Ang</span>
+                <span class="input-label">Finishing Ang *</span>
                 <input 
                     name="finishAng"
                     type="number" 
                     placeholder="{{ vm.isAllowedToEdit ? 'Finishing Ang' : 'No Finishing Ang'  }}"
                     ng-model="vm.data.finishAng"
                     ng-model-options='{ debounce: 300 }'
-                    ng-required="vm.data.selectedStatus.finished"
+                    required
                     ng-min="vm.data.startAng + 1"
                     autocomplete="off"
                     max="1430"
