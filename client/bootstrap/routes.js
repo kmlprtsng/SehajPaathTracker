@@ -2,57 +2,102 @@ angular.module('sehajPaathTracker')
 	.config(function ($stateProvider, $urlRouterProvider) {
 		$stateProvider
 			.state('login', {
-				url: '/login',
+				url: '/login?logout=:isSigningOut',
 				templateUrl: 'client/user-accounts/login.html',
 				authRequired: false
 			})
-			.state('paaths', {
+            .state('tab', {
+                url: '/tab',
+                abstract: true,
+                templateUrl: 'client/tabs.html',
+                authRequired: true,
+                resolve: {
+                    paathsSubscriptionHandler() {
+                        return Meteor.subscribe('paaths');
+                    },
+                    users(){
+                        return Meteor.subscribe('users');
+                    }
+                }
+            })
+			.state('tab.paaths', {
 				url: '/paaths',
-				templateUrl: 'client/paath/list/paaths.html',
-				controller: 'PaathsCtrl as vm',
-				authRequired: true
+                views: {
+                    'tab-paaths': {
+                        templateUrl: 'client/paath/list/paaths.html',
+                        controller: 'PaathsCtrl as vm'
+                    }
+                }
 			})
-			.state('createPaath', {
-				url: '/create-paath',
-				templateUrl: 'client/paath/create/create-paath.html',
-				controller: "CreatePaathCtrl as vm",
-				authRequired: true
+			.state('tab.createPaath', {
+				url: '/paaths/create',
+                views: {
+                    'tab-paaths': {
+                        templateUrl: 'client/paath/create/create-paath.html',
+                        controller: 'CreatePaathCtrl as vm'
+                    }
+                }
 			})
-			.state('paathSettings', {
+			.state('tab.paathSettings', {
 				url: '/paaths/:paathId/settings',
-				templateUrl: 'client/paath/settings/paath-settings.html',
-				controller: 'PaathSettingsCtrl as vm',
-				authRequired: true
+                views: {
+                    'tab-paaths': {
+                        templateUrl: 'client/paath/settings/paath-settings.html',
+                        controller: 'PaathSettingsCtrl as vm'
+                    }
+                }
 			})
-			.state('paathDetails', {
+			.state('tab.paathDetails', {
 				url: '/paaths/:paathId',
-				templateUrl: 'client/paath/details/paath-details.html',
-				controller: 'PaathDetailsCtrl as vm',
-				authRequired: true
+                views: {
+                    'tab-paaths': {
+                        templateUrl: 'client/paath/details/paath-details.html',
+                        controller: 'PaathDetailsCtrl as vm'
+                    }
+                }
 			})
-			.state('paathHistoryLogs', {
+			.state('tab.paathHistoryLogs', {
 				url: '/paaths/:paathId/history-logs',
-				templateUrl: 'client/paath/history/paath-history-logs.html',
-				controller: 'PaathHistoryLogsCtrl as vm',
-				authRequired: true
+                views: {
+                    'tab-paaths': {
+                        templateUrl: 'client/paath/history/paath-history-logs.html',
+                        controller: 'PaathHistoryLogsCtrl as vm'
+                    }
+                }
 			})
-			.state('addPaathLog', {
+			.state('tab.addPaathLog', {
 				url: '/paaths/:paathId/paath-log/add',
-				templateUrl: 'client/paath/log/paath-log-form.html',
-				controller: 'PaathLogFormCtrl as vm',
-				authRequired: true,
+                views: {
+                    'tab-paaths': {
+                        templateUrl: 'client/paath/log/paath-log-form.html',
+                        controller: 'PaathLogFormCtrl as vm'
+                    }
+                },
 				resolve: {
 					paathLogStatues: function(){ return PaathLogStatusesList; }
 				}
 			})
-			.state('editPaathLog', {
+			.state('tab.editPaathLog', {
 				url: '/paaths/:paathId/paath-log/:paathLogId',
-				templateUrl: 'client/paath/log/paath-log-form.html',
-				controller: 'PaathLogFormCtrl as vm',
-				authRequired: true,
+                views: {
+                    'tab-paaths': {
+                        templateUrl: 'client/paath/log/paath-log-form.html',
+                        controller: 'PaathLogFormCtrl as vm'
+                    }
+                },
 				resolve: {
 					paathLogStatues: function(){ return PaathLogStatusesList; }
 				}
+			})
+            
+			.state('tab.settings', {
+				url: '/settings',
+                views: {
+                    'tab-settings': {
+                        templateUrl: 'client/settings/settings.html',
+                        controller: 'SettingsCtrl as vm'
+                    }
+                }
 			});
 
 		$urlRouterProvider.otherwise('/login');

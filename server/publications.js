@@ -3,7 +3,7 @@ Meteor.publish('users', function () {
 });
 
 Meteor.publishComposite('paaths', function () {
-    if (!this.userId) { 
+    if (!this.userId) {
         return this.ready();
     }
     

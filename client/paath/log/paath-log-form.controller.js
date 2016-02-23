@@ -8,9 +8,6 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 		paathId = $stateParams.paathId,
 		paathLogId = $stateParams.paathLogId;
 
-    vm.subscribe('paaths');
-	vm.subscribe('users');
-    
 	vm.newPaathLog = !paathLogId;
 	vm.data = {};
 	vm.paathLogStatus = paathLogStatues;

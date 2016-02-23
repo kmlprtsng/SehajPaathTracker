@@ -46,7 +46,7 @@
         }
 
         function addLog() {
-            $state.go("addPaathLog", { paathId: vm.paath._id });
+            $state.go("tab.addPaathLog", { paathId: vm.paath._id });
         }
 
         function like() {
@@ -57,7 +57,7 @@
         }
 
         function updateLog() {
-            $state.go("editPaathLog", { paathId: vm.paath._id, paathLogId: vm.latestLog._id });
+            $state.go("tab.editPaathLog", { paathId: vm.paath._id, paathLogId: vm.latestLog._id });
         }
     }
 })();

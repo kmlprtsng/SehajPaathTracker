@@ -14,10 +14,11 @@
         if (isAuthRequired && !isAuthenticated) {
           $state.transitionTo("login");
           event.preventDefault();
+          return;
         }
         
-        if(isAuthenticated && toState.name === "login"){
-          $state.transitionTo("paaths");
+        if(isAuthenticated && toState.name === "login" && toParams.isSigningOut !== "true"){
+          $state.transitionTo("tab.paaths");
           event.preventDefault();
         }
       });

@@ -12,7 +12,7 @@ angular
 						historyRoot: true
 					});
 
-					$state.go("paaths");
+					$state.go("tab.paaths");
 
 					postSignupDetails.show();
 				}
