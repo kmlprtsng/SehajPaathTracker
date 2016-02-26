@@ -89,7 +89,6 @@ angular.module('sehajPaathTracker')
 					paathLogStatues: function(){ return PaathLogStatusesList; }
 				}
 			})
-            
 			.state('tab.settings', {
 				url: '/settings',
                 views: {
@@ -98,7 +97,15 @@ angular.module('sehajPaathTracker')
                         controller: 'SettingsCtrl as vm'
                     }
                 }
-			});
+			})
+            .state('tab.feedback', {
+				url: '/feedback',
+                views: {
+                    'tab-feedback': {
+                        templateUrl: 'client/feedback/feedback.html'
+                    }
+                }
+			});;
 
 		$urlRouterProvider.otherwise('/login');
 
