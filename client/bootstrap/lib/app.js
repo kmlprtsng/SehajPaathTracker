@@ -5,7 +5,10 @@
       'ionic',
       'angular-svg-round-progress',
       'angularMoment'
-    ]);
+    ])
+    .config(['$ionicConfigProvider', function($ionicConfigProvider) {
+        $ionicConfigProvider.tabs.position('bottom');
+    }]);;
 
   if (Meteor.isCordova) {
     angular.element(document).on('deviceready', onReady);
