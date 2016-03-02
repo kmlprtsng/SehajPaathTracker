@@ -5,11 +5,8 @@
         .module('sehajPaathTracker')
         .directive('internetStatusBar', internetStatusBarDirective);
 
-    function internetStatusBarDirective() {
+    function internetStatusBarDirective(meteorConnectionStatus) {
         var directive = {
-            bindToController: true,
-            controller: 'InternetStatusBarController',
-            controllerAs: 'vm',
             restrict: 'E',
             scope: {},
             templateUrl: 'client/components/internet-status-bar/internet-status-bar.html',
@@ -18,16 +15,18 @@
         return directive;
         
         function link(scope, element, attrs) {
-            scope.$watch("isShown", function(){
-               if(scope.isShown){
-                   element
-                    .removeClass("hide")
-                    .addClass("shown");
-               }
-               else{
+            scope.meteorConnectionStatus = meteorConnectionStatus;
+             
+            scope.$watch("meteorConnectionStatus.connected", function(){
+               if(scope.meteorConnectionStatus.connected){
                    element
                     .addClass("hide")
                     .removeClass("shown");
+               }
+               else{
+                   element
+                    .removeClass("hide")
+                    .addClass("shown");
                }
             });
         }
