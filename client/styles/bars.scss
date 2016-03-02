@@ -9,11 +9,6 @@
   transition: 200ms all;
 }
 
-.has-header {
-  -webkit-transition: 200ms top;
-  transition: 200ms top;
-}
-
 .has-header.has-loading, internet-status-bar.shown + ion-nav-view .has-header {
   top: 62px;
 }
