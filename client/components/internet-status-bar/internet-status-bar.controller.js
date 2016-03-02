@@ -5,9 +5,13 @@
         .module('sehajPaathTracker')
         .controller('InternetStatusBarController', InternetStatusBarController);
 
-    InternetStatusBarController.$inject = [''];
-    function InternetStatusBarController($meteor) {
+    function InternetStatusBarController($scope, $reactive) {
+        $reactive(this).attach($scope);
+        
         var vm = this;
-        vm.isConnected = $meteor.status().status === "connected";
+
+        this.autorun(() => {
+            vm.isConnected = Meteor.status().status === "connected";
+        });   
     }
 })();

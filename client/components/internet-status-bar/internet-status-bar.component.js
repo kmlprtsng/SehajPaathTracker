@@ -7,9 +7,9 @@
 
     function internetStatusBarDirective() {
         var directive = {
-            //bindToController: true,
-            //controller: 'InternetStatusBarController',
-            //controllerAs: 'vm',
+            bindToController: true,
+            controller: 'InternetStatusBarController',
+            controllerAs: 'vm',
             restrict: 'E',
             scope: {},
             templateUrl: 'client/components/internet-status-bar/internet-status-bar.html'
