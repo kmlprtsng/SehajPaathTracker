@@ -14,8 +14,8 @@
   transition: 200ms top;
 }
 
-.has-header.has-loading, internet-status-bar+ion-nav-view .has-header {
-  top: 68px;
+.has-header.has-loading, internet-status-bar.shown + ion-nav-view .has-header {
+  top: 62px;
 }
 
 .bar-loading.ng-enter,

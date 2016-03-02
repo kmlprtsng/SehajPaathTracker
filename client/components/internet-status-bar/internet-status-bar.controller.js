@@ -7,11 +7,9 @@
 
     function InternetStatusBarController($scope, $reactive) {
         $reactive(this).attach($scope);
-        
-        var vm = this;
 
         this.autorun(() => {
-            vm.isConnected = Meteor.status().status === "connected";
+            $scope.isShown = Meteor.status().status !== "connected";
         });   
     }
 })();
