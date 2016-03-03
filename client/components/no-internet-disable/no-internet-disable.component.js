@@ -3,14 +3,13 @@
 
     angular
         .module('sehajPaathTracker')
-        .directive('internetStatusBar', internetStatusBarDirective);
+        .directive('noInternetDisable', NoInternetDisable);
 
-    function internetStatusBarDirective(meteorConnectionStatus) {
+    NoInternetDisable.$inject = ['meteorConnectionStatus'];
+    function NoInternetDisable(meteorConnectionStatus) {
         var directive = {
-            restrict: 'E',
-            scope: {},
-            templateUrl: 'client/components/internet-status-bar/internet-status-bar.html',
-            link: link
+            link: link,
+            restrict: 'A'
         };
         return directive;
         
@@ -20,13 +19,11 @@
             scope.$watch("meteorConnectionStatus.connected", function(){
                if(scope.meteorConnectionStatus.connected){
                    element
-                    .addClass("hide")
-                    .removeClass("shown");
+                    .removeAttr("disabled");
                }
                else{
                    element
-                    .removeClass("hide")
-                    .addClass("shown");
+                    .attr("disabled", "");
                }
             });
         }
