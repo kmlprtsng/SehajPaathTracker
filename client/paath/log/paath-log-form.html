@@ -86,8 +86,8 @@
             </div>
 
             <div ng-if="vm.isAllowedToEdit">
-                <button type="submit" class="button button-positive button-full">{{vm.newPaathLog ? "Add" : "Update"}}</button> 
-                <button class="button button-assertive button-full" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog">Delete</button>
+                <button type="submit" class="button button-positive button-full"  no-internet-disable>{{vm.newPaathLog ? "Add" : "Update"}}</button> 
+                <button class="button button-assertive button-full" ng-click="vm.deletePaathLog()" ng-if="!vm.newPaathLog"  no-internet-disable>Delete</button>
             </div>
         </form>
     </ion-content>
