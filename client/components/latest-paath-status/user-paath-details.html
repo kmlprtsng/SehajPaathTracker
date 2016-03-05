@@ -12,7 +12,7 @@
         <button class="button button-clear button-primary icon-left ion-thumbsup" ng-click="vm.like()">Guru bhala kare</button>
     </div>
     <div class="userPaathStatus-actions" ng-if="vm.user._id === vm.loggedInUserId">
-        <button class="button button-small button-primary" ng-click="vm.addLog()" ng-show="vm.showAddButton()">Add</button>
+        <button class="button button-small button-primary" ng-click="vm.addLog()" ng-show="vm.showAddButton()" no-internet-disable>Add</button>
         <button class="button button-small button-primary" ng-click="vm.updateLog()" ng-show="!vm.showAddButton()">Update</button>
     </div>
 </div>

@@ -1,0 +1,25 @@
+.bar.bar-error {
+  display: block;
+  height: 24px;
+  top: 44px;
+  text-align: center;
+  padding: 0;
+  line-height: 24px;
+  -webkit-transition: 200ms all;
+  transition: 200ms all;
+}
+
+.has-header.has-loading, internet-status-bar.shown + ion-nav-view .has-header {
+  top: 62px;
+}
+
+.bar-loading.ng-enter,
+.bar-loading.ng-leave.ng-leave-active {
+  height: 0;
+  border-width: 0px;
+}
+.bar-loading.ng-enter.ng-enter-active,
+.bar-loading.ng-leave {
+  height: 24px;
+  border-width: 1px;
+}
