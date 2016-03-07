@@ -1,51 +1,61 @@
 angular.module('sehajPaathTracker')
-	.controller('CreatePaathCtrl', CreatePaathController);
+    .controller('CreatePaathCtrl', CreatePaathController);
 
-function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUsers) {
-	$reactive(this).attach($scope);
+function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUsers, $timeout) {
+    $reactive(this).attach($scope);
 
-	var vm = this;
-    
-	vm.loggedInUser = Meteor.user();
+    var vm = this;
 
-	vm.data = {
-		title: "",
-		formValid: false
-	};
+    vm.loggedInUser = Meteor.user();
 
-	vm.createPaath = createPaath;
-	vm.addUser = addUser;
+    vm.data = {
+        title: "",
+        formValid: false
+    };
 
-	vm.users = [vm.loggedInUser];
+    vm.createPaath = createPaath;
+    vm.addUser = addUser;
+
+    vm.users = [vm.loggedInUser];
     vm.addUserFormEmail = "";
 
-	$scope.$watch("vm.data.title", function () {
-		vm.data.formValid = !(_.isEmpty(vm.data.title));
-	});
+    $scope.$watch("vm.data.title", function () {
+        vm.data.formValid = !(_.isEmpty(vm.data.title));
+    });
 
-	//////////
+    //////////
 		
-	function createPaath() {
-		if (!vm.data.formValid) {
-			return;
-		}
-		
-		var userIds = _.pluck(vm.users, "_id");
+    function createPaath() {
+        if (!vm.data.formValid) {
+            return;
+        }
 
-		Meteor.call('createPaath', {
-			title: vm.data.title,
-			userIds: userIds
-		});
+        var userIds = _.pluck(vm.users, "_id");
 
-		$state.go('tab.paaths');
-	};
-
-	function addUser(email) {
-        var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
+        Meteor.call('createPaath', {
+            title: vm.data.title,
+            userIds: userIds
+        }, function (error) {
+            if (error) {
+                $timeout(function () {
+                    $ionicPopup.alert({
+                        title: 'Waheguru',
+                        template: 'Sorry Khalsa Ji but there was a problem creating your new paath'
+                    });
+                });
+            }
+        });
         
-		if(newUser){
+        
+        $state.go('tab.paaths');
+    };
+
+    function addUser(email) {
+        var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
+
+        if (newUser) {
             vm.users.push(newUser);
             delete vm.addUserFormEmail;
         }
-	}
+    }
 };
