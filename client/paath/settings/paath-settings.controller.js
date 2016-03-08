@@ -1,7 +1,7 @@
 angular.module('sehajPaathTracker')
     .controller('PaathSettingsCtrl', PaathSettingsController);
 
-function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive, paathUsers, $ionicModal) {
+function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $reactive, paathUsers, $ionicModal, notifications) {
     $reactive(this).attach($scope);
 
     var vm = this,
@@ -44,13 +44,22 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
         var newUser = paathUsers.findNewUserByEmail(vm.addUserFormEmail, vm.users);
 
         if (newUser) {
-            Meteor.call("addUserToPaath", vm.paath._id, newUser._id);
+            Meteor.call("addUserToPaath", vm.paath._id, newUser._id, function (error) {            
+                if (error) {
+                    notifications.notify("Bhakslo Khalsa Ji", "Sorry Khalsa Ji but there was a problem adding the new user.");
+                }
+            });
+        
             delete vm.addUserFormEmail;
         }
     }
 
     function deletePaath() {
-        Meteor.call("deletePaath", vm.paath._id);
+        Meteor.call("deletePaath", vm.paath._id, function (error) {            
+            if (error) {
+                notifications.notify("Bhakslo Khalsa Ji", "Sorry Khalsa Ji but there was a problem deleting the paath.");
+            }
+        });
 
         $ionicHistory.nextViewOptions({
             historyRoot: true,
@@ -65,7 +74,11 @@ function PaathSettingsController($scope, $stateParams, $state, $ionicHistory, $r
     }
     
     function onTitleModalSave(newTitle){
-        Meteor.call('updatePaathTitle', paathId, newTitle);
+        Meteor.call('updatePaathTitle', paathId, newTitle, function (error) {            
+            if (error) {
+                notifications.notify("Bhakslo Khalsa Ji", "Sorry Khalsa Ji but we could not update your paath title");
+            }
+        });
         vm.titleModal.show = false;
     }
     

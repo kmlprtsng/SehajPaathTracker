@@ -29,13 +29,11 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
        
        if(vm.newPaathLog){
            $timeout(function(){
-                var confirmPopup = $ionicPopup.confirm({
-                    title: 'Chardikala Ji',
-                    template: 'The next available ang has just changed to ' 
+               var confirmPopup = notifications.confirm('Chardikala Ji', 
+                                        'The next available ang has just changed to ' 
                                     + vm.paath.nextAvailableAng 
-                                    + '. <br /><br />Would you like to update your starting ang?'
-                });
-                
+                                    + '. <br /><br />Would you like to update your starting ang?');
+                                    
                 confirmPopup.then(function(res) {
                     if(res) {
                         vm.data.startAng = vm.paath.nextAvailableAng;
@@ -50,7 +48,12 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	////////////
 		
 	function deletePaathLog() {
-		Meteor.call('deletePaathLog', paathLogId)
+		Meteor.call('deletePaathLog', paathLogId, function (error) {
+            if (error) {
+                notifications.notify("Bhakslo Khalsa Ji", "Sorry Khalsa Ji but there was a problem deleting your paath log");
+            }
+        });
+        
 		$ionicHistory.goBack();
 	}
     
@@ -95,17 +98,18 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 
             nextAvailableAngWatch();
 
-			Meteor.call('savePaathLog', paathLogId, paathLog, function(error, result){
-                
-                if(!error){
-                    $ionicHistory.goBack();
-                    return;
+			Meteor.call('savePaathLog', paathLogId, paathLog, function(error){
+                if(error){
+                    if(error.error === "not-authorised"){
+                        notifications.notify("Not Authorised", "Sorry Khalsa Ji but you are not allowed to edit other people's log");
+                        return;
+                    }
+                    
+                    notifications.notify("Bhakslo Khalsa Ji", "Sorry but we could not save your paath log");
                 }
-                
-                if(error.error === "not-authorised"){
-                    notifications.notify("Not Authorised", "Sorry Khalsa Ji but you are not allowed to edit other people's log");
-                }
-            });			
+            });
+            
+            $ionicHistory.goBack();	
 		}
 	}
 };
