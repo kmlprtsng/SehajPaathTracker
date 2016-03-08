@@ -1,7 +1,7 @@
 angular.module('sehajPaathTracker')
     .controller('CreatePaathCtrl', CreatePaathController);
 
-function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUsers, $timeout) {
+function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUsers, notifications) {
     $reactive(this).attach($scope);
 
     var vm = this;
@@ -37,12 +37,7 @@ function CreatePaathController($scope, $state, $ionicPopup, $reactive, paathUser
             userIds: userIds
         }, function (error) {
             if (error) {
-                $timeout(function () {
-                    $ionicPopup.alert({
-                        title: 'Waheguru',
-                        template: 'Sorry Khalsa Ji but there was a problem creating your new paath'
-                    });
-                });
+                notifications.notify("Bhakslo Khalsa Ji", "Sorry Khalsa Ji but there was a problem creating your new paath");
             }
         });
         

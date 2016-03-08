@@ -50,7 +50,12 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 	////////////
 		
 	function deletePaathLog() {
-		Meteor.call('deletePaathLog', paathLogId)
+		Meteor.call('deletePaathLog', paathLogId, function (error) {
+            if (error) {
+                notifications.notify("Bhakslo Khalsa Ji", "Sorry Khalsa Ji but there was a problem deleting your paath log");
+            }
+        });
+        
 		$ionicHistory.goBack();
 	}
     
@@ -95,17 +100,18 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
 
             nextAvailableAngWatch();
 
-			Meteor.call('savePaathLog', paathLogId, paathLog, function(error, result){
-                
-                if(!error){
-                    $ionicHistory.goBack();
-                    return;
+			Meteor.call('savePaathLog', paathLogId, paathLog, function(error){
+                if(error){
+                    if(error.error === "not-authorised"){
+                        notifications.notify("Not Authorised", "Sorry Khalsa Ji but you are not allowed to edit other people's log");
+                        return;
+                    }
+                    
+                    notifications.notify("Bhakslo Khalsa Ji", "Sorry but we could not save your paath log");
                 }
-                
-                if(error.error === "not-authorised"){
-                    notifications.notify("Not Authorised", "Sorry Khalsa Ji but you are not allowed to edit other people's log");
-                }
-            });			
+            });
+            
+            $ionicHistory.goBack();	
 		}
 	}
 };
