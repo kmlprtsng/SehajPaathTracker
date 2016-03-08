@@ -29,13 +29,11 @@ function PaathLogFormController($scope, $state, $stateParams, $ionicHistory, paa
        
        if(vm.newPaathLog){
            $timeout(function(){
-                var confirmPopup = $ionicPopup.confirm({
-                    title: 'Chardikala Ji',
-                    template: 'The next available ang has just changed to ' 
+               var confirmPopup = notifications.confirm('Chardikala Ji', 
+                                        'The next available ang has just changed to ' 
                                     + vm.paath.nextAvailableAng 
-                                    + '. <br /><br />Would you like to update your starting ang?'
-                });
-                
+                                    + '. <br /><br />Would you like to update your starting ang?');
+                                    
                 confirmPopup.then(function(res) {
                     if(res) {
                         vm.data.startAng = vm.paath.nextAvailableAng;

@@ -10,6 +10,7 @@
         var service = this;
         
         service.notify = notify;
+        service.confirm = confirm;
         
         ////////////////
         function notify(title, template) { 
@@ -17,6 +18,15 @@
                 title: title,
                 template: template
             });
+        }
+        
+        function confirm(title, template){
+            var promise = $ionicPopup.confirm({
+                    title: title,
+                    template: template
+                });
+            
+            return promise;
         }
     }
 })();
