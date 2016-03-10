@@ -18,7 +18,7 @@ function PaathDetailsController($scope, $stateParams, $reactive, $state) {
         if (vm.paath) {
             vm.helpers({
                 users() {
-                    return Meteor.users.find({ _id: { $in: vm.paath.users } });
+                    return Meteor.users.find({ _id: { $in: vm.getReactively("paath.users") } });
                 }
             });
 
