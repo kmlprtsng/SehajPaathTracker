@@ -1,5 +1,5 @@
 <ion-view view-title="{{vm.newPaathLog ? 'Add Log' : 'Update Log'}}">
-    <ion-content padding="false" class="has-header">
+    <ion-content padding="false" class="has-header" ng-cloak>
         <div ng-if="vm.newPaathLog">
             <h1 class="hd-stat center m-t-lg">Next Available Ang: {{vm.paath.nextAvailableAng}}</h1>
             <missing-angs angs="vm.paath.missingAngs"></missing-angs>
